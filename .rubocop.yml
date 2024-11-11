@@ -1,8 +1,112 @@
-# Omakase Ruby styling for Rails
-inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+require:
+  - rubocop-rails
+  - rubocop-performance
 
-# Overwrite or add rules to create your own house style
-#
-# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
-# Layout/SpaceInsideArrayLiteralBrackets:
-#   Enabled: false
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
+    - 'bin/*'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+    - 'lib/tasks/auto_annotate_models.rake'
+    - 'lib/tasks/pg_dump_restore.rake'
+    - 'tmp/**/*'
+
+Style/FormatStringToken:
+  Exclude:
+    - config/routes.rb
+    - config/routes/*
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
+  IgnoredMethods: [change]
+
+Lint/MissingSuper:
+  Exclude:
+    - 'app/components/**/*'
+
+Metrics/BlockLength:
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
+  IgnoredMethods:
+    - FactoryBot.define
+    - RSpec.describe
+    - configure
+    - context
+    - describe
+    - xdescribe
+    - factory
+    - it
+    - xit
+    - scenario
+    - xscenario
+    - xcontext
+    - let
+    - shared_examples
+    - within
+    - shared_context
+    - path
+    - get
+    - post
+  Exclude:
+    - 'config/routes.rb'
+    - 'config/routes/*'
+
+Metrics/ClassLength:
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
+  Exclude:
+    - 'spec/**/*'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'app/presenters/**/*'
+    - 'spec/**/*'
+
+Metrics/ModuleLength:
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
+  Exclude:
+    - 'app/helpers/**/*'
+
+Metrics/MethodLength:
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
+  Exclude:
+    - 'db/migrate/**/*'
+    - 'spec/**/*'
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: consistent
+
+Rails/DynamicFindBy:
+  Whitelist:
+    - find_by_label
+    - find_by_value
+    - find_by_path
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  AllowedMethods:
+    - alias_method
+    - public
+    - protected
+    - private
+    - pattr_reader
+    - pattr_writer
+    - pattr_accessor
