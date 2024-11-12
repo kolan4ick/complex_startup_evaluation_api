@@ -10,9 +10,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_11_144606) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_11_154712) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "effectiveness_scores", force: :cascade do |t|
+    t.float "value"
+    t.integer "order"
+    t.bigint "evaluation_id", null: false
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["evaluation_id"], name: "index_effectiveness_scores_on_evaluation_id"
+  end
+
+  create_table "evaluation_scores_maxes", force: :cascade do |t|
+    t.float "value"
+    t.integer "order"
+    t.bigint "evaluation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["evaluation_id"], name: "index_evaluation_scores_maxes_on_evaluation_id"
+  end
+
+  create_table "evaluation_scores_mins", force: :cascade do |t|
+    t.float "value"
+    t.integer "order"
+    t.bigint "evaluation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["evaluation_id"], name: "index_evaluation_scores_mins_on_evaluation_id"
+  end
+
+  create_table "evaluation_scores_sums", force: :cascade do |t|
+    t.float "value"
+    t.integer "order"
+    t.bigint "evaluation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["evaluation_id"], name: "index_evaluation_scores_sums_on_evaluation_id"
+  end
+
+  create_table "evaluations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_evaluations_on_user_id"
+  end
 
   create_table "jwt_denylists", force: :cascade do |t|
     t.string "jti"
@@ -37,4 +81,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_11_144606) do
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "effectiveness_scores", "evaluations"
+  add_foreign_key "evaluation_scores_maxes", "evaluations"
+  add_foreign_key "evaluation_scores_mins", "evaluations"
+  add_foreign_key "evaluation_scores_sums", "evaluations"
+  add_foreign_key "evaluations", "users"
 end
