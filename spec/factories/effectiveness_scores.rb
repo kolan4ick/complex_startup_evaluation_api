@@ -23,7 +23,12 @@ FactoryBot.define do
   factory :effectiveness_score do
     value { 0 }
     sequence(:order) { |n| n }
-    type { '' }
     evaluation
+
+    factory :effectiveness_sum_score, class: 'EffectivenessScores::Sum'
+    factory :effectiveness_min_score, class: 'EffectivenessScores::Min'
+    factory :effectiveness_max_score, class: 'EffectivenessScores::Max'
+    factory :effectiveness_desired_score, class: 'EffectivenessScores::Desired'
+    factory :effectiveness_weight_score, class: 'EffectivenessScores::Weight'
   end
 end

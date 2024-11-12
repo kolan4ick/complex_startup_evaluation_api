@@ -12,7 +12,9 @@ RSpec.describe EvaluationSerializer do
         min_scores: evaluation.min_scores,
         max_scores: evaluation.max_scores,
         desired_scores: evaluation.desired_scores,
-        weight_scores: evaluation.weight_scores
+        weight_scores: evaluation.weight_scores,
+        created_at: evaluation.created_at,
+        updated_at: evaluation.updated_at
       }
     end
 

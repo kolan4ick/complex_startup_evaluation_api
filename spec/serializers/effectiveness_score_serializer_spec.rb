@@ -11,7 +11,9 @@ RSpec.describe EffectivenessScoreSerializer do
         id: effectiveness_score.id,
         evaluation: effectiveness_score.evaluation,
         order: effectiveness_score.order,
-        value: effectiveness_score.value
+        value: effectiveness_score.value,
+        created_at: effectiveness_score.created_at,
+        updated_at: effectiveness_score.updated_at
       }
     end
 

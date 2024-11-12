@@ -1,11 +1,11 @@
 class EvaluationSerializer < Blueprinter::Base
   identifier :id
 
-  field :user
+  fields :user, :created_at, :updated_at
 
-  association :sum_scores, blueprint: EffectivenessScoreSerializer
-  association :min_scores, blueprint: EffectivenessScoreSerializer
-  association :max_scores, blueprint: EffectivenessScoreSerializer
-  association :desired_scores, blueprint: EffectivenessScoreSerializer
-  association :weight_scores, blueprint: EffectivenessScoreSerializer
+  association :effectiveness_sum_scores, blueprint: EffectivenessScoreSerializer
+  association :effectiveness_min_scores, blueprint: EffectivenessScoreSerializer
+  association :effectiveness_max_scores, blueprint: EffectivenessScoreSerializer
+  association :effectiveness_desired_scores, blueprint: EffectivenessScoreSerializer
+  association :effectiveness_weight_scores, blueprint: EffectivenessScoreSerializer
 end

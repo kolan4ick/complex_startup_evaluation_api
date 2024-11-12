@@ -11,7 +11,9 @@ RSpec.describe UserSerializer do
         id: user.id,
         name: user.name,
         evaluations: user.evaluations,
-        email: user.email
+        email: user.email,
+        created_at: user.created_at,
+        updated_at: user.updated_at
       }
     end
 
