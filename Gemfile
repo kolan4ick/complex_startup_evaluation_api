@@ -29,7 +29,7 @@ gem 'bootsnap', require: false
 gem 'devise'
 gem 'devise-jwt'
 
-gem 'jsonapi-serializer'
+gem 'blueprinter'
 
 gem 'rack-cors'
 
@@ -55,7 +55,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'annotate'
+  gem 'annotaterb'
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
 end

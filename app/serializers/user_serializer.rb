@@ -1,4 +1,7 @@
-class UserSerializer
-  include JSONAPI::Serializer
-  attributes :id, :email, :name
+class UserSerializer < Blueprinter::Base
+  identifier :id
+
+  fields :email, :name
+
+  association :evaluations, blueprint: EvaluationSerializer
 end
