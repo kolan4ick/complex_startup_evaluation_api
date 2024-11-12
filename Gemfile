@@ -59,3 +59,10 @@ group :development do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
 end
+
+group :test do
+  gem 'database_cleaner-active_record'
+  gem 'shoulda'
+  gem 'webdrivers'
+  gem 'webmock'
+end

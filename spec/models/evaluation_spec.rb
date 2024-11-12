@@ -1,5 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Evaluation, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'associations' do
+    it { should have_many :sum_scores }
+    it { should have_many :max_scores }
+    it { should have_many :min_scores }
+    it { should have_many :desired_scores }
+    it { should have_many :weight_scores }
+  end
 end
