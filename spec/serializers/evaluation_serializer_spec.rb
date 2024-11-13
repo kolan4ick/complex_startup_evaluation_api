@@ -1,5 +1,8 @@
+require 'rails_helper'
+
 RSpec.describe EvaluationSerializer do
-  let(:evaluation) { create(:evaluation) }
+  let(:user) { create(:user) }
+  let(:evaluation) { create(:evaluation, user:) }
 
   subject { described_class.render_as_hash(evaluation) }
 
@@ -7,12 +10,58 @@ RSpec.describe EvaluationSerializer do
     let(:expectation) do
       {
         id: evaluation.id,
-        user: evaluation.user,
-        sum_scores: evaluation.sum_scores,
-        min_scores: evaluation.min_scores,
-        max_scores: evaluation.max_scores,
-        desired_scores: evaluation.desired_scores,
-        weight_scores: evaluation.weight_scores,
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          created_at: user.created_at,
+          updated_at: user.updated_at
+        },
+        effectiveness_sum_scores: evaluation.effectiveness_sum_scores.map do |score|
+          {
+            id: score.id,
+            value: score.value,
+            order: score.order,
+            created_at: score.created_at,
+            updated_at: score.updated_at
+          }
+        end,
+        effectiveness_min_scores: evaluation.effectiveness_min_scores.map do |score|
+          {
+            id: score.id,
+            value: score.value,
+            order: score.order,
+            created_at: score.created_at,
+            updated_at: score.updated_at
+          }
+        end,
+        effectiveness_max_scores: evaluation.effectiveness_max_scores.map do |score|
+          {
+            id: score.id,
+            value: score.value,
+            order: score.order,
+            created_at: score.created_at,
+            updated_at: score.updated_at
+          }
+        end,
+        effectiveness_desired_scores: evaluation.effectiveness_desired_scores.map do |score|
+          {
+            id: score.id,
+            value: score.value,
+            order: score.order,
+            created_at: score.created_at,
+            updated_at: score.updated_at
+          }
+        end,
+        effectiveness_weight_scores: evaluation.effectiveness_weight_scores.map do |score|
+          {
+            id: score.id,
+            value: score.value,
+            order: score.order,
+            created_at: score.created_at,
+            updated_at: score.updated_at
+          }
+        end,
         created_at: evaluation.created_at,
         updated_at: evaluation.updated_at
       }
