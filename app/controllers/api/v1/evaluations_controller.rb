@@ -20,10 +20,10 @@ module Api
 
         return unless evaluation.save!
 
-        render json: { effectiveness: evaluation.evaluate_effectiveness, risk: evaluation.evaluate_risk }
+        render json: { effectiveness: evaluation.evaluate_effectiveness, risk: evaluation.evaluate_risk,
+                       team: evaluation.evaluate_team }
 
         # TODO: Add pdf report generation here in the future
-        # TODO: Add calculation of the last method of evaluation in the future
       end
 
       private

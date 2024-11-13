@@ -26,6 +26,7 @@
 class Evaluation < ApplicationRecord
   include Effectiveness::Evaluable
   include Risk::Evaluable
+  include Team::Evaluable
 
   belongs_to :user
 end
