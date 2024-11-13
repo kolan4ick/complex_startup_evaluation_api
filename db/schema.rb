@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_13_142529) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_13_185528) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -55,6 +55,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_13_142529) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "team_stability"
+    t.integer "team_competencies_and_experience"
+    t.integer "team_leaders_competencies"
+    t.integer "team_competencies"
+    t.integer "team_professional_activity"
     t.index ["user_id"], name: "index_evaluations_on_user_id"
   end
 
@@ -78,6 +83,18 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_13_142529) do
     t.index ["evaluation_id"], name: "index_risk_scores_on_evaluation_id"
   end
 
+  create_table "team_scores", force: :cascade do |t|
+    t.string "linguistic"
+    t.float "authenticity"
+    t.integer "weight"
+    t.integer "order"
+    t.bigint "evaluation_id", null: false
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["evaluation_id"], name: "index_team_scores_on_evaluation_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -99,4 +116,5 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_13_142529) do
   add_foreign_key "evaluation_scores_sums", "evaluations"
   add_foreign_key "evaluations", "users"
   add_foreign_key "risk_scores", "evaluations"
+  add_foreign_key "team_scores", "evaluations"
 end
