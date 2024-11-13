@@ -1,7 +1,8 @@
 class EvaluationSerializer < Blueprinter::Base
   identifier :id
 
-  fields :created_at, :updated_at
+  fields :team_competencies, :team_competencies_and_experience, :team_leaders_competencies,
+         :team_professional_activity, :team_stability, :created_at, :updated_at
 
   association :user, blueprint: UserSerializer
   association :effectiveness_sum_scores, blueprint: EffectivenessScoreSerializer

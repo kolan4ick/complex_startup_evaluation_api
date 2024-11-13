@@ -24,6 +24,11 @@
 FactoryBot.define do
   factory :evaluation do
     user
+    team_competencies { 1 }
+    team_competencies_and_experience { 1 }
+    team_leaders_competencies { 1 }
+    team_professional_activity { 1 }
+    team_stability { 1 }
 
     after(:build) do |evaluation|
       evaluation.effectiveness_sum_scores = build_list(:effectiveness_sum_score, 5, evaluation:)
@@ -36,6 +41,10 @@ FactoryBot.define do
       evaluation.risk_investment_scores = build_list(:risk_investment_score, 5, evaluation:)
       evaluation.risk_operational_scores = build_list(:risk_operational_score, 9, evaluation:)
       evaluation.risk_innovation_activity_scores = build_list(:risk_innovation_activity_score, 5, evaluation:)
+
+      evaluation.team_stability_scores = build_list(:team_stability_score, 2, evaluation:)
+      evaluation.team_professional_competency_scores = build_list(:team_professional_competency_score, 5, evaluation:)
+      evaluation.team_professional_activity_scores = build_list(:team_professional_activity_score, 4, evaluation:)
     end
   end
 end

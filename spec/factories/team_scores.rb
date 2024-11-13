@@ -22,11 +22,13 @@
 #
 FactoryBot.define do
   factory :team_score do
-    linguistic { "MyString" }
-    authenticity { 1.5 }
-    weight { 1 }
-    order { 1 }
-    evaluation { nil }
-    type { "" }
+    linguistic { 'НС' }
+    authenticity { 0.5 }
+    weight { 5 }
+    evaluation
+
+    factory :team_stability_score, class: 'TeamScores::Stability'
+    factory :team_professional_competency_score, class: 'TeamScores::ProfessionalCompetency'
+    factory :team_professional_activity_score, class: 'TeamScores::ProfessionalActivity'
   end
 end

@@ -102,6 +102,11 @@ RSpec.describe EvaluationSerializer do
             updated_at: score.updated_at
           }
         end,
+        team_competencies: 1,
+        team_competencies_and_experience: 1,
+        team_leaders_competencies: 1,
+        team_professional_activity: 1,
+        team_stability: 1,
         created_at: evaluation.created_at,
         updated_at: evaluation.updated_at
       }
