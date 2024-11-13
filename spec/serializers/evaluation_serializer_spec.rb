@@ -62,6 +62,46 @@ RSpec.describe EvaluationSerializer do
             updated_at: score.updated_at
           }
         end,
+        risk_financial_scores: evaluation.risk_financial_scores.map do |score|
+          {
+            id: score.id,
+            linguistic: score.linguistic,
+            authenticity: score.authenticity,
+            order: score.order,
+            created_at: score.created_at,
+            updated_at: score.updated_at
+          }
+        end,
+        risk_innovation_activity_scores: evaluation.risk_innovation_activity_scores.map do |score|
+          {
+            id: score.id,
+            linguistic: score.linguistic,
+            authenticity: score.authenticity,
+            order: score.order,
+            created_at: score.created_at,
+            updated_at: score.updated_at
+          }
+        end,
+        risk_investment_scores: evaluation.risk_investment_scores.map do |score|
+          {
+            id: score.id,
+            linguistic: score.linguistic,
+            authenticity: score.authenticity,
+            order: score.order,
+            created_at: score.created_at,
+            updated_at: score.updated_at
+          }
+        end,
+        risk_operational_scores: evaluation.risk_operational_scores.map do |score|
+          {
+            id: score.id,
+            linguistic: score.linguistic,
+            authenticity: score.authenticity,
+            order: score.order,
+            created_at: score.created_at,
+            updated_at: score.updated_at
+          }
+        end,
         created_at: evaluation.created_at,
         updated_at: evaluation.updated_at
       }

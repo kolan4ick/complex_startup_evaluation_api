@@ -25,5 +25,9 @@ RSpec.describe Evaluation, type: :model do
     it { should have_many :effectiveness_min_scores }
     it { should have_many :effectiveness_desired_scores }
     it { should have_many :effectiveness_weight_scores }
+    it { should have_many :risk_financial_scores }
+    it { should have_many :risk_innovation_activity_scores }
+    it { should have_many :risk_investment_scores }
+    it { should have_many :risk_operational_scores }
   end
 end
