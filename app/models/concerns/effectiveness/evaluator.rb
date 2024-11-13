@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Effectiveness
-  class EffectivenessEvaluator
-    attr_accessor :sum_scores, :min_scores, :max_scores, :desired_scores, :desired_terms, :weight_scores
-
+  class Evaluator
     def initialize(**scores)
       @sum_scores = scores[:sum_scores]
       @min_scores = scores[:min_scores]

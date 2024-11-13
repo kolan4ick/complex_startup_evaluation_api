@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_11_154712) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_13_142529) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -67,6 +67,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_11_154712) do
     t.index ["jti"], name: "index_jwt_denylists_on_jti"
   end
 
+  create_table "risk_scores", force: :cascade do |t|
+    t.string "linguistic"
+    t.float "authenticity"
+    t.string "type"
+    t.bigint "evaluation_id", null: false
+    t.integer "order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["evaluation_id"], name: "index_risk_scores_on_evaluation_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -87,4 +98,5 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_11_154712) do
   add_foreign_key "evaluation_scores_mins", "evaluations"
   add_foreign_key "evaluation_scores_sums", "evaluations"
   add_foreign_key "evaluations", "users"
+  add_foreign_key "risk_scores", "evaluations"
 end
