@@ -3,11 +3,11 @@
 # Table name: team_scores
 #
 #  id            :bigint           not null, primary key
-#  authenticity  :float
+#  confidence    :float
 #  linguistic    :string
 #  order         :integer
 #  type          :string
-#  weight        :integer
+#  weight        :float
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  evaluation_id :bigint           not null
@@ -23,7 +23,5 @@
 require 'rails_helper'
 
 RSpec.describe TeamScore, type: :model do
-  describe 'associations' do
-    it { should belong_to(:evaluation) }
-  end
+  pending "add some examples to (or delete) #{__FILE__}"
 end

@@ -29,7 +29,9 @@ module Api
       private
 
       def evaluations_params
-        params.require(:evaluation).permit(effectiveness_sum_scores_attributes: %i[value order],
+        params.require(:evaluation).permit(:team_competencies, :team_competencies_and_experience,
+                                           :team_leaders_competencies, :team_professional_activity, :team_stability,
+                                           effectiveness_sum_scores_attributes: %i[value order],
                                            effectiveness_min_scores_attributes: %i[value order],
                                            effectiveness_max_scores_attributes: %i[value order],
                                            effectiveness_desired_scores_attributes: %i[value order],
@@ -38,7 +40,12 @@ module Api
                                            risk_investment_scores_attributes: %i[linguistic authenticity order],
                                            risk_operational_scores_attributes: %i[linguistic authenticity order],
                                            risk_innovation_activity_scores_attributes: %i[linguistic authenticity
-                                                                                          order])
+                                                                                          order],
+                                           team_stability_scores_attributes: %i[linguistic confidence weight order],
+                                           team_professional_competency_scores_attributes: %i[linguistic confidence
+                                                                                              weight order],
+                                           team_professional_activity_scores_attributes: %i[linguistic confidence
+                                                                                            weight order])
       end
     end
   end

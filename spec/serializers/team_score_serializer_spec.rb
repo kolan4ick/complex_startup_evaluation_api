@@ -14,7 +14,7 @@ RSpec.describe TeamScoreSerializer do
           id: team_score.id,
           order: team_score.order,
           linguistic: team_score.linguistic,
-          authenticity: team_score.authenticity,
+          confidence: team_score.confidence,
           weight: team_score.weight,
           created_at: team_score.created_at,
           updated_at: team_score.updated_at

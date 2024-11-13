@@ -3,11 +3,11 @@
 # Table name: team_scores
 #
 #  id            :bigint           not null, primary key
-#  authenticity  :float
+#  confidence    :float
 #  linguistic    :string
 #  order         :integer
 #  type          :string
-#  weight        :integer
+#  weight        :float
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  evaluation_id :bigint           not null
