@@ -19,7 +19,8 @@
 #
 
 class Evaluation < ApplicationRecord
-  include Effectiveness::EffectivenessEvaluable
+  include Effectiveness::Evaluable
+  include Risk::Evaluable
 
   belongs_to :user
 end

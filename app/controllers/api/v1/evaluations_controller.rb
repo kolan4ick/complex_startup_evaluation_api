@@ -20,10 +20,10 @@ module Api
 
         return unless evaluation.save!
 
-        render json: evaluation.evaluate
+        render json: { effectiveness: evaluation.evaluate_effectiveness, risk: evaluation.evaluate_risk }
 
         # TODO: Add pdf report generation here in the future
-        # TODO: Add calculation of two other methods of evaluation in the future
+        # TODO: Add calculation of the last method of evaluation in the future
       end
 
       private
@@ -33,7 +33,12 @@ module Api
                                            effectiveness_min_scores_attributes: %i[value order],
                                            effectiveness_max_scores_attributes: %i[value order],
                                            effectiveness_desired_scores_attributes: %i[value order],
-                                           effectiveness_weight_scores_attributes: %i[value order])
+                                           effectiveness_weight_scores_attributes: %i[value order],
+                                           risk_financial_scores_attributes: %i[linguistic authenticity order],
+                                           risk_investment_scores_attributes: %i[linguistic authenticity order],
+                                           risk_operational_scores_attributes: %i[linguistic authenticity order],
+                                           risk_innovation_activity_scores_attributes: %i[linguistic authenticity
+                                                                                          order])
       end
     end
   end

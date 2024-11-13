@@ -26,6 +26,11 @@ FactoryBot.define do
       evaluation.effectiveness_max_scores = build_list(:effectiveness_max_score, 5, evaluation:)
       evaluation.effectiveness_desired_scores = build_list(:effectiveness_desired_score, 5, evaluation:)
       evaluation.effectiveness_weight_scores = build_list(:effectiveness_weight_score, 5, evaluation:)
+
+      evaluation.risk_financial_scores = build_list(:risk_financial_score, 5, evaluation:)
+      evaluation.risk_investment_scores = build_list(:risk_investment_score, 5, evaluation:)
+      evaluation.risk_operational_scores = build_list(:risk_operational_score, 9, evaluation:)
+      evaluation.risk_innovation_activity_scores = build_list(:risk_innovation_activity_score, 5, evaluation:)
     end
   end
 end

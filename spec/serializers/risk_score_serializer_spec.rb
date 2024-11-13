@@ -1,21 +1,22 @@
 require 'rails_helper'
 
-RSpec.describe EffectivenessScoreSerializer do
+RSpec.describe RiskScoreSerializer do
   let(:user) { create(:user) }
   let(:evaluation) { create(:evaluation, user:) }
-  let(:effectiveness_score) { create(:effectiveness_score, evaluation:) }
+  let(:risk_score) { create(:risk_score, evaluation:) }
 
   context 'checking JSON' do
     context 'default' do
-      subject { described_class.render_as_hash(effectiveness_score) }
+      subject { described_class.render_as_hash(risk_score) }
 
       let(:expectation) do
         {
-          id: effectiveness_score.id,
-          order: effectiveness_score.order,
-          value: effectiveness_score.value,
-          created_at: effectiveness_score.created_at,
-          updated_at: effectiveness_score.updated_at
+          id: risk_score.id,
+          order: risk_score.order,
+          linguistic: risk_score.linguistic,
+          authenticity: risk_score.authenticity,
+          created_at: risk_score.created_at,
+          updated_at: risk_score.updated_at
         }
       end
 
@@ -25,13 +26,11 @@ RSpec.describe EffectivenessScoreSerializer do
     end
 
     context 'extended' do
-      subject { described_class.render_as_hash(effectiveness_score, view: :extended) }
+      subject { described_class.render_as_hash(risk_score, view: :extended) }
 
       let(:expectation) do
         {
-          id: effectiveness_score.id,
-          order: effectiveness_score.order,
-          value: effectiveness_score.value,
+          id: risk_score.id,
           evaluation: {
             id: evaluation.id,
             user: {
@@ -129,8 +128,11 @@ RSpec.describe EffectivenessScoreSerializer do
             created_at: evaluation.created_at,
             updated_at: evaluation.updated_at
           },
-          created_at: effectiveness_score.created_at,
-          updated_at: effectiveness_score.updated_at
+          order: risk_score.order,
+          linguistic: risk_score.linguistic,
+          authenticity: risk_score.authenticity,
+          created_at: risk_score.created_at,
+          updated_at: risk_score.updated_at
         }
       end
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Effectiveness
-  module EffectivenessEvaluable
+  module Evaluable
     extend ActiveSupport::Concern
 
     included do
@@ -15,8 +15,8 @@ module Effectiveness
                                     :effectiveness_desired_scores, :effectiveness_weight_scores
     end
 
-    def evaluate
-      EffectivenessEvaluator.new(
+    def evaluate_effectiveness
+      Evaluator.new(
         sum_scores: effectiveness_sum_scores.order(:order).pluck(:value),
         min_scores: effectiveness_min_scores.order(:order).pluck(:value),
         max_scores: effectiveness_max_scores.order(:order).pluck(:value),

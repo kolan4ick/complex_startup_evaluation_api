@@ -3,5 +3,7 @@ class UserSerializer < Blueprinter::Base
 
   fields :email, :name, :created_at, :updated_at
 
-  association :evaluations, blueprint: EvaluationSerializer
+  view :extended do
+    association :evaluations, blueprint: EvaluationSerializer
+  end
 end
