@@ -20,8 +20,19 @@ module Api
 
         return unless evaluation.save!
 
-        render json: { effectiveness: evaluation.evaluate_effectiveness, risk: evaluation.evaluate_risk,
-                       team: evaluation.evaluate_team }
+        effectiveness = evaluation.evaluate_effectiveness
+        risk = evaluation.evaluate_risk
+        team = evaluation.evaluate_team
+        financing_feasibility = evaluation.evaluate_financing_feasibility(effectiveness[:aggregated_score],
+                                                                          risk[:aggregated_membership],
+                                                                          team[:defuzzification])
+
+        render json: {
+          effectiveness:,
+          risk:,
+          team:,
+          financing_feasibility:
+        }
 
         # TODO: Add pdf report generation here in the future
       end

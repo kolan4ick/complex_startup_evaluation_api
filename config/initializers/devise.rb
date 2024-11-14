@@ -114,7 +114,7 @@ Devise.setup do |config|
     jwt.revocation_requests = [
       ['DELETE', %r{^/logout$}]
     ]
-    jwt.expiration_time = 30.minutes.to_i
+    jwt.expiration_time = 7.days.to_i
   end
 
   # When false, Devise will not attempt to reload routes on eager load.
