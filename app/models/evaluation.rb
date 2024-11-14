@@ -5,6 +5,7 @@
 # Table name: evaluations
 #
 #  id                               :bigint           not null, primary key
+#  feasibility_linguistic           :integer          default("very_low")
 #  team_competencies                :integer
 #  team_competencies_and_experience :integer
 #  team_leaders_competencies        :integer
@@ -28,6 +29,8 @@ class Evaluation < ApplicationRecord
   include Risk::Evaluable
   include Team::Evaluable
   include FinancingFeasibility::Evaluable
+
+  enum :feasibility_linguistic, { very_low: 1, low: 2, middle: 3, high: 4, very_high: 5 }
 
   belongs_to :user
 end

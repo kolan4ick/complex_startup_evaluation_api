@@ -3,9 +3,11 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  adjustment_delta       :float
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  jti                    :string           not null
+#  feasibility_threshold  :float
+#  jti                    :string           default(""), not null
 #  name                   :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
@@ -24,5 +26,6 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe 'associations' do
     it { should have_many :evaluations }
+    it { should have_many :feasibility_levels }
   end
 end

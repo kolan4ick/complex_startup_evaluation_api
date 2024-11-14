@@ -3,6 +3,7 @@
 # Table name: evaluations
 #
 #  id                               :bigint           not null, primary key
+#  feasibility_linguistic           :integer          default("very_low")
 #  team_competencies                :integer
 #  team_competencies_and_experience :integer
 #  team_leaders_competencies        :integer
@@ -29,6 +30,7 @@ FactoryBot.define do
     team_leaders_competencies { 1 }
     team_professional_activity { 1 }
     team_stability { 1 }
+    feasibility_linguistic { 4 }
 
     after(:build) do |evaluation|
       evaluation.effectiveness_sum_scores = build_list(:effectiveness_sum_score, 5, evaluation:)

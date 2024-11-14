@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_13_202240) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_14_185411) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -24,33 +24,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_13_202240) do
     t.index ["evaluation_id"], name: "index_effectiveness_scores_on_evaluation_id"
   end
 
-  create_table "evaluation_scores_maxes", force: :cascade do |t|
-    t.float "value"
-    t.integer "order"
-    t.bigint "evaluation_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["evaluation_id"], name: "index_evaluation_scores_maxes_on_evaluation_id"
-  end
-
-  create_table "evaluation_scores_mins", force: :cascade do |t|
-    t.float "value"
-    t.integer "order"
-    t.bigint "evaluation_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["evaluation_id"], name: "index_evaluation_scores_mins_on_evaluation_id"
-  end
-
-  create_table "evaluation_scores_sums", force: :cascade do |t|
-    t.float "value"
-    t.integer "order"
-    t.bigint "evaluation_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["evaluation_id"], name: "index_evaluation_scores_sums_on_evaluation_id"
-  end
-
   create_table "evaluations", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -60,16 +33,18 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_13_202240) do
     t.integer "team_leaders_competencies"
     t.integer "team_competencies"
     t.integer "team_professional_activity"
+    t.integer "feasibility_linguistic", default: 1
     t.index ["user_id"], name: "index_evaluations_on_user_id"
   end
 
-  create_table "jwt_denylists", force: :cascade do |t|
-    t.string "jti"
-    t.datetime "exp"
+  create_table "feasibility_levels", force: :cascade do |t|
+    t.string "title"
+    t.float "value"
+    t.bigint "user_id", null: false
+    t.integer "linguistic", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["exp"], name: "index_jwt_denylists_on_exp"
-    t.index ["jti"], name: "index_jwt_denylists_on_jti"
+    t.index ["user_id"], name: "index_feasibility_levels_on_user_id"
   end
 
   create_table "risk_scores", force: :cascade do |t|
@@ -104,17 +79,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_13_202240) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
-    t.string "jti", null: false
+    t.string "jti", default: "", null: false
+    t.float "feasibility_threshold"
+    t.float "adjustment_delta"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "effectiveness_scores", "evaluations"
-  add_foreign_key "evaluation_scores_maxes", "evaluations"
-  add_foreign_key "evaluation_scores_mins", "evaluations"
-  add_foreign_key "evaluation_scores_sums", "evaluations"
   add_foreign_key "evaluations", "users"
+  add_foreign_key "feasibility_levels", "users"
   add_foreign_key "risk_scores", "evaluations"
   add_foreign_key "team_scores", "evaluations"
 end

@@ -79,7 +79,8 @@ RSpec.describe 'Evaluations', type: :request do
         risk_innovation_activity_scores_attributes: attributes_for_list(:risk_innovation_activity_score, 5),
         team_stability_scores_attributes: attributes_for_list(:team_stability_score, 2),
         team_professional_competency_scores_attributes: attributes_for_list(:team_professional_competency_score, 5),
-        team_professional_activity_scores_attributes: attributes_for_list(:team_professional_activity_score, 4)
+        team_professional_activity_scores_attributes: attributes_for_list(:team_professional_activity_score, 4),
+        feasibility_linguistic: :high
       }
     end
 

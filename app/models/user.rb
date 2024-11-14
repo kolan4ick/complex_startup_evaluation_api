@@ -5,9 +5,11 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  adjustment_delta       :float
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  jti                    :string           not null
+#  feasibility_threshold  :float
+#  jti                    :string           default(""), not null
 #  name                   :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
@@ -30,4 +32,6 @@ class User < ApplicationRecord
          jwt_revocation_strategy: self
 
   has_many :evaluations, dependent: :destroy
+
+  has_many :feasibility_levels, dependent: :destroy
 end

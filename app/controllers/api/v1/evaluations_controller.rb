@@ -42,6 +42,7 @@ module Api
       def evaluations_params
         params.require(:evaluation).permit(:team_competencies, :team_competencies_and_experience,
                                            :team_leaders_competencies, :team_professional_activity, :team_stability,
+                                           :feasibility_linguistic,
                                            effectiveness_sum_scores_attributes: %i[value order],
                                            effectiveness_min_scores_attributes: %i[value order],
                                            effectiveness_max_scores_attributes: %i[value order],

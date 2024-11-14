@@ -1,20 +1,11 @@
 module FinancingFeasibility
   class Evaluator
-    K = 0.9 # TODO: Should be retrieved from user's preferences
-    LINGUISTIC = {
-      high: K * (2.0 / 9.0),
-      above_average: K * (7.0 / 9.0),
-      average: K * (4.0 / 9.0),
-      low: K * (5.0 / 9.0),
-      very_low: K * (3.0 / 2.0)
-    }.freeze # TODO: Should be retrieved from user's preferences
-    DELTA = 0.5 # TODO: Should be retrieved from user's preferences
-
-    def initialize(effectiveness:, risk:, team:, linguistic: :high)
-      @effectiveness = effectiveness
-      @risk = risk
-      @team = team
-      @linguistic = linguistic
+    def initialize(**args)
+      @effectiveness = args[:effectiveness]
+      @risk = args[:risk]
+      @team = args[:team]
+      @adjustment_delta = args[:adjustment_delta]
+      @feasibility_level = args[:feasibility_level]
     end
 
     def evaluate
@@ -42,7 +33,7 @@ module FinancingFeasibility
       if cone_shaped_membership.negative?
         0
       elsif cone_shaped_membership >= 0 && cone_shaped_membership < 1.0
-        cone_shaped_membership**LINGUISTIC[@linguistic]
+        cone_shaped_membership**@feasibility_level
       else
         1
       end
@@ -63,23 +54,23 @@ module FinancingFeasibility
     end
 
     def left_boundary
-      DELTA - (DELTA / 2.0)
+      @adjustment_delta - (@adjustment_delta / 2.0)
     end
 
     def middle_left
-      DELTA - (DELTA / 4.0)
+      @adjustment_delta - (@adjustment_delta / 4.0)
     end
 
     def middle
-      DELTA
+      @adjustment_delta
     end
 
     def middle_right
-      DELTA + (DELTA / 4.0)
+      @adjustment_delta + (@adjustment_delta / 4.0)
     end
 
     def right_boundary
-      DELTA + (DELTA / 2.0)
+      @adjustment_delta + (@adjustment_delta / 2.0)
     end
 
     def in_range?(membership, lower, upper)
@@ -87,8 +78,8 @@ module FinancingFeasibility
     end
 
     def calculate_membership_values(membership, upper_multiplier, lower_multiplier, order)
-      res1 = ((upper_multiplier * DELTA) - (4 * membership)) / DELTA
-      res2 = ((4 * membership) - (lower_multiplier * DELTA)) / DELTA
+      res1 = ((upper_multiplier * @adjustment_delta) - (4 * membership)) / @adjustment_delta
+      res2 = ((4 * membership) - (lower_multiplier * @adjustment_delta)) / @adjustment_delta
       [
         { value: res1, linguistic: linguistic_valuation(order) },
         { value: res2, linguistic: linguistic_valuation(order + 1) }
