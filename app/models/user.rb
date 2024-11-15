@@ -34,4 +34,15 @@ class User < ApplicationRecord
   has_many :evaluations, dependent: :destroy
 
   has_many :feasibility_levels, dependent: :destroy
+  accepts_nested_attributes_for :feasibility_levels
+
+  after_create :create_feasibility_levels
+
+  private
+
+  def create_feasibility_levels
+    FeasibilityLevel.linguistics.each_key do |level|
+      feasibility_levels.create!(linguistic: level, value: 0, title: level.to_s.humanize)
+    end
+  end
 end

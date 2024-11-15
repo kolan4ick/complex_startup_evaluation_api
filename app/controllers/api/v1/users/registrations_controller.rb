@@ -13,9 +13,11 @@ module Api
 
       def respond_with(current_user, _opts = {})
         if resource.persisted?
+          message = request.patch? || request.put? ? 'Updated successfully.' : 'Signed up successfully.'
+
           render json: {
-            status: { code: 200, message: 'Signed up successfully.' },
-            data: UserSerializer.render_as_hash(current_user)
+            status: { code: 200, message: message },
+            data: UserSerializer.render_as_hash(current_user, view: :extended)
           }
         else
           render json: {
