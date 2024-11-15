@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_14_185411) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_15_145249) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -61,7 +61,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_14_185411) do
   create_table "team_scores", force: :cascade do |t|
     t.string "linguistic"
     t.float "confidence"
-    t.float "weight"
+    t.integer "weight", default: 1, null: false
     t.integer "order"
     t.bigint "evaluation_id", null: false
     t.string "type"
@@ -80,8 +80,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_14_185411) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.string "jti", default: "", null: false
-    t.float "feasibility_threshold"
-    t.float "adjustment_delta"
+    t.float "feasibility_threshold", default: 0.1, null: false
+    t.float "adjustment_delta", default: 0.1, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

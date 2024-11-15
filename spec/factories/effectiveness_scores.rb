@@ -21,7 +21,7 @@
 
 FactoryBot.define do
   factory :effectiveness_score do
-    value { 0 }
+    value { 0.2 }
     sequence(:order) { |n| n }
     evaluation
 

@@ -7,7 +7,7 @@
 #  linguistic    :string
 #  order         :integer
 #  type          :string
-#  weight        :float
+#  weight        :integer          default(1), not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  evaluation_id :bigint           not null
@@ -24,7 +24,7 @@ FactoryBot.define do
   factory :team_score do
     linguistic { 'НС' }
     confidence { 0.5 }
-    weight { 1.5 }
+    weight { 2 }
     evaluation
 
     factory :team_stability_score, class: 'TeamScores::Stability'

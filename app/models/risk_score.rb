@@ -21,4 +21,7 @@
 #
 class RiskScore < ApplicationRecord
   belongs_to :evaluation
+
+  validates :linguistic, presence: true
+  validates :authenticity, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 1 }
 end

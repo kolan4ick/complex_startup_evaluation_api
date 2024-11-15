@@ -7,7 +7,7 @@
 #  linguistic    :string
 #  order         :integer
 #  type          :string
-#  weight        :float
+#  weight        :integer          default(1), not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  evaluation_id :bigint           not null
@@ -22,4 +22,8 @@
 #
 class TeamScore < ApplicationRecord
   belongs_to :evaluation
+
+  validates :linguistic, presence: true
+  validates :confidence, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 1 }
+  validates :weight, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 10 }
 end

@@ -22,4 +22,7 @@ class FeasibilityLevel < ApplicationRecord
   belongs_to :user
 
   enum :linguistic, { high: 1, above_middle: 2, middle: 3, low: 4, very_low: 5 }
+
+  validates :linguistic, presence: true
+  validates :value, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 1 }
 end

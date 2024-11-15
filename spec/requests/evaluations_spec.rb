@@ -68,6 +68,11 @@ RSpec.describe 'Evaluations', type: :request do
     let(:evaluation_params) do
       build(:evaluation)
       {
+        team_competencies: 7,
+        team_competencies_and_experience: 7,
+        team_leaders_competencies: 7,
+        team_professional_activity: 7,
+        team_stability: 7,
         effectiveness_sum_scores_attributes: attributes_for_list(:effectiveness_sum_score, 5),
         effectiveness_min_scores_attributes: attributes_for_list(:effectiveness_min_score, 5),
         effectiveness_max_scores_attributes: attributes_for_list(:effectiveness_max_score, 5),
