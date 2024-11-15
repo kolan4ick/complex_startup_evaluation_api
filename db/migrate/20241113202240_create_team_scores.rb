@@ -1,7 +1,7 @@
 class CreateTeamScores < ActiveRecord::Migration[8.0]
   def change
     create_table :team_scores do |t|
-      t.string :linguistic
+      t.integer :linguistic, default: 1
       t.float :confidence
       t.float :weight
       t.integer :order

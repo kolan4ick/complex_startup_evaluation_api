@@ -89,17 +89,17 @@ module FinancingFeasibility
     def linguistic_valuation(order) # rubocop:disable Metrics/MethodLength
       case order
       when 1
-        'дуже низький рівень доцільності фінансування проекту'
+        I18n.t('api.evaluator.financing_feasibility.linguistic_valuation.very_low')
       when 2
-        'низький рівень доцільності фінансування проекту'
+        I18n.t('api.evaluator.financing_feasibility.linguistic_valuation.low')
       when 3
-        'середній рівень доцільності фінансування проекту'
+        I18n.t('api.evaluator.financing_feasibility.linguistic_valuation.medium')
       when 4
-        'високий рівень доцільності фінансування проекту'
+        I18n.t('api.evaluator.financing_feasibility.linguistic_valuation.high')
       when 5
-        'дуже високий рівень доцільності фінансування проекту'
+        I18n.t('api.evaluator.financing_feasibility.linguistic_valuation.very_high')
       else
-        'невизначений рівень доцільності фінансування проекту'
+        I18n.t('api.evaluator.financing_feasibility.linguistic_valuation.undefined')
       end
     end
   end

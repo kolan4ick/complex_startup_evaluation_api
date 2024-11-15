@@ -16,10 +16,10 @@ module Risk
 
     def evaluate_risk
       Risk::Evaluator.new(
-        financial_scores: risk_financial_scores.order(:order),
-        innovation_activity_scores: risk_innovation_activity_scores.order(:order),
+        operational_scores: risk_operational_scores.order(:order),
         investment_scores: risk_investment_scores.order(:order),
-        operational_scores: risk_operational_scores.order(:order)
+        financial_scores: risk_financial_scores.order(:order),
+        innovation_activity_scores: risk_innovation_activity_scores.order(:order)
       ).evaluate
     end
   end

@@ -2,14 +2,12 @@
 
 module Risk
   class Evaluator
-    RISK_LEVELS = %w[Н НС С ВС В].freeze
-
     RISK_PERCENTAGE_LEVELS = {
-      'Н' => [0.0, 20.0],
-      'НС' => [20.0, 40.0],
-      'С' => [40.0, 60.0],
-      'ВС' => [60.0, 80.0],
-      'В' => [80.0, 100.0]
+      'low' => [0.0, 20.0],
+      'below_middle' => [20.0, 40.0],
+      'middle' => [40.0, 60.0],
+      'above_middle' => [60.0, 80.0],
+      'high' => [80.0, 100.0]
     }.freeze
 
     class RiskAssessment
@@ -35,11 +33,11 @@ module Risk
       # Aggregate the assessment
       # @return [String] aggregated assessment
       def aggregate_assessment
-        RISK_LEVELS.each do |level|
+        RISK_PERCENTAGE_LEVELS.each_key do |level|
           return level if @linguistic.count(level).to_f / @linguistic.size >= 0.6
         end
 
-        'No matching risk level found'
+        I18n.t('api.evaluator.risk.no_matching_risk_level')
       end
 
       # Aggregate reliability assessment
@@ -118,17 +116,17 @@ module Risk
     def security_level(aggregated_membership) # rubocop:disable Metrics/MethodLength
       case aggregated_membership
       when 0..0.21
-        'Рівень безпеки фінансування проєкту низький'
+        I18n.t('api.evaluator.risk.security_level.low')
       when 0.21..0.36
-        'Рівень безпеки фінансування проєкту нижче середнього'
+        I18n.t('api.evaluator.risk.security_level.below_average')
       when 0.36..0.67
-        'Рівень безпеки фінансування проєкту середній'
+        I18n.t('api.evaluator.risk.security_level.average')
       when 0.67..0.87
-        'Рівень безпеки фінансування проєкту вище середнього'
+        I18n.t('api.evaluator.risk.security_level.above_average')
       when 0.87..1
-        'Рівень безпеки фінансування проєкту високий'
+        I18n.t('api.evaluator.risk.security_level.high')
       else
-        'Рівень безпеки фінансування проєкту не визначено'
+        I18n.t('api.evaluator.risk.security_level.undefined')
       end
     end
 

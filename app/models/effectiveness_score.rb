@@ -24,5 +24,5 @@
 class EffectivenessScore < ApplicationRecord
   belongs_to :evaluation
 
-  validates :value, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 1 }
+  validates :value, presence: true, numericality: { greater_than: 0 }
 end

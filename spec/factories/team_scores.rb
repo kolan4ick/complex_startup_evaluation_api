@@ -4,7 +4,7 @@
 #
 #  id            :bigint           not null, primary key
 #  confidence    :float
-#  linguistic    :string
+#  linguistic    :integer          default("low")
 #  order         :integer
 #  type          :string
 #  weight        :integer          default(1), not null
@@ -22,7 +22,7 @@
 #
 FactoryBot.define do
   factory :team_score do
-    linguistic { 'НС' }
+    linguistic { 1 }
     confidence { 0.5 }
     weight { 2 }
     evaluation

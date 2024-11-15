@@ -13,17 +13,21 @@ module Api
 
       def respond_with(current_user, _opts = {})
         if resource.persisted?
-          message = request.patch? || request.put? ? 'Updated successfully.' : 'Signed up successfully.'
+          message = I18n.t('api.users.registrations.signed_up_successfully')
 
           render json: {
-            status: { code: 200, message: message },
+            status: {
+              code: 200,
+              message: request.patch? || request.put? ? I18n.t('api.users.registrations.updated_successfully') : message
+            },
             data: UserSerializer.render_as_hash(current_user, view: :extended)
           }
         else
+          error_message = I18n.t('api.users.registrations.creation_failed',
+                                 errors: current_user.errors.full_messages.to_sentence)
+
           render json: {
-            status: {
-              message: "User couldn't be created successfully. #{current_user.errors.full_messages.to_sentence}"
-            }
+            status: { message: error_message }
           }, status: :unprocessable_entity
         end
       end

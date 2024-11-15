@@ -4,7 +4,7 @@
 #
 #  id            :bigint           not null, primary key
 #  confidence    :float
-#  linguistic    :string
+#  linguistic    :integer          default("low")
 #  order         :integer
 #  type          :string
 #  weight        :integer          default(1), not null

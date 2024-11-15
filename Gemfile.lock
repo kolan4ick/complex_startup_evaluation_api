@@ -351,6 +351,7 @@ DEPENDENCIES
   devise-jwt
   dotenv-rails
   factory_bot_rails
+  i18n
   pg (~> 1.1)
   puma (>= 5.0)
   rack-cors

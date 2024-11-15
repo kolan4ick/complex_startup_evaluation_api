@@ -2,8 +2,6 @@
 
 module Team
   class Evaluator
-    LEVELS = %w[Н НС С ВС В].freeze
-
     TERMS = [2.0, 5.0, 8.0, 10.0].freeze
 
     class TeamAssessment
@@ -14,13 +12,16 @@ module Team
       def initialize(**args)
         @linguistic, @confidence, @weights = args[:term].pluck(:linguistic, :confidence, :weight).transpose
 
+        @confidence.map!(&:to_f)
+        @weights.map!(&:to_f)
+
         @weight = args[:weight].to_f
         @team = args[:team].to_f
         @leaders = args[:leaders].to_f
       end
 
       def characteristics
-        as = { 'Н' => TERMS[0], 'НС' => TERMS[1], 'С' => TERMS[2], 'В' => TERMS[3] }
+        as = { 'low' => TERMS[0], 'below_middle' => TERMS[1], 'middle' => TERMS[2], 'high' => TERMS[3] }
 
         @linguistic.zip(@confidence, @weights).map do |linguistic, confidence|
           as[linguistic] * confidence
@@ -100,15 +101,15 @@ module Team
     def rating(defuzzification) # rubocop:disable Metrics/MethodLength
       case defuzzification
       when 0.0..0.21
-        'низький'
+        I18n.t('api.evaluator.team.rating.low')
       when 0.22..0.37
-        'нижче середнього'
+        I18n.t('api.evaluator.team.rating.below_avg')
       when 0.38..0.67
-        'середній'
+        I18n.t('api.evaluator.team.rating.avg')
       when 0.68..0.87
-        'вище середнього'
+        I18n.t('api.evaluator.team.rating.above_avg')
       else
-        'високий'
+        I18n.t('api.evaluator.team.rating.high')
       end
     end
   end
