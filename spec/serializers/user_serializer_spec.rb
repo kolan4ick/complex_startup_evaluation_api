@@ -12,6 +12,7 @@ RSpec.describe UserSerializer do
           id: user.id,
           name: user.name,
           email: user.email,
+          feasibility_threshold: user.feasibility_threshold,
           created_at: user.created_at,
           updated_at: user.updated_at
         }
@@ -30,7 +31,18 @@ RSpec.describe UserSerializer do
           id: user.id,
           name: user.name,
           email: user.email,
+          feasibility_threshold: user.feasibility_threshold,
           evaluations: [],
+          feasibility_levels: user.feasibility_levels.map do |f_l|
+            {
+              id: f_l.id,
+              title: f_l.title,
+              linguistic: f_l.linguistic,
+              value: f_l.value,
+              created_at: f_l.created_at,
+              updated_at: f_l.updated_at
+            }
+          end,
           created_at: user.created_at,
           updated_at: user.updated_at
         }

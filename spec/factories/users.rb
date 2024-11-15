@@ -3,9 +3,11 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  adjustment_delta       :float
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  jti                    :string           not null
+#  feasibility_threshold  :float
+#  jti                    :string           default(""), not null
 #  name                   :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
@@ -24,7 +26,13 @@ FactoryBot.define do
   factory :user do
     name { 'Test name' }
     sequence(:email) { |n| "name#{n}@example.com" }
+    feasibility_threshold { 0.6 }
+    adjustment_delta { 0.2 }
     password { 'topsecret' }
     password_confirmation { password }
+
+    after(:build) do |user|
+      user.feasibility_levels = build_list(:feasibility_level, 5)
+    end
   end
 end

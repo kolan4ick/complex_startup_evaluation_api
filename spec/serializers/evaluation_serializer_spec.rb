@@ -14,6 +14,7 @@ RSpec.describe EvaluationSerializer do
           id: user.id,
           name: user.name,
           email: user.email,
+          feasibility_threshold: user.feasibility_threshold,
           created_at: user.created_at,
           updated_at: user.updated_at
         },
@@ -102,11 +103,12 @@ RSpec.describe EvaluationSerializer do
             updated_at: score.updated_at
           }
         end,
-        team_competencies: 1,
-        team_competencies_and_experience: 1,
-        team_leaders_competencies: 1,
-        team_professional_activity: 1,
-        team_stability: 1,
+        team_competencies: evaluation.team_competencies,
+        team_competencies_and_experience: evaluation.team_competencies_and_experience,
+        team_leaders_competencies: evaluation.team_leaders_competencies,
+        team_professional_activity: evaluation.team_professional_activity,
+        team_stability: evaluation.team_stability,
+        feasibility_linguistic: evaluation.feasibility_linguistic,
         created_at: evaluation.created_at,
         updated_at: evaluation.updated_at
       }
