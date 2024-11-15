@@ -40,6 +40,7 @@ gem 'i18n'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 # gem "rack-cors"
+gem 'rswag'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -54,6 +55,7 @@ group :development, :test do
   gem 'bullet'
   gem 'factory_bot_rails'
   gem 'rspec-rails'
+  gem 'rswag-specs'
 end
 
 group :development do
