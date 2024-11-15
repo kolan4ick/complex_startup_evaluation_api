@@ -7,6 +7,10 @@ module Api
 
       private
 
+      def update_resource(resource, params)
+        resource.update_without_password(params)
+      end
+
       def respond_with(current_user, _opts = {})
         if resource.persisted?
           render json: {
@@ -15,7 +19,9 @@ module Api
           }
         else
           render json: {
-            status: { message: "User couldn't be created successfully. #{current_user.errors.full_messages.to_sentence}" }
+            status: {
+              message: "User couldn't be created successfully. #{current_user.errors.full_messages.to_sentence}"
+            }
           }, status: :unprocessable_entity
         end
       end
