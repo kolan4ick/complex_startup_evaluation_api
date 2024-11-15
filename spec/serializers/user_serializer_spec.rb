@@ -13,6 +13,7 @@ RSpec.describe UserSerializer do
           name: user.name,
           email: user.email,
           feasibility_threshold: user.feasibility_threshold,
+          adjustment_delta: user.adjustment_delta,
           created_at: user.created_at,
           updated_at: user.updated_at
         }
@@ -32,6 +33,7 @@ RSpec.describe UserSerializer do
           name: user.name,
           email: user.email,
           feasibility_threshold: user.feasibility_threshold,
+          adjustment_delta: user.adjustment_delta,
           evaluations: [],
           feasibility_levels: user.feasibility_levels.map do |f_l|
             {
