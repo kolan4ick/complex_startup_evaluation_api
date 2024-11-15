@@ -20,7 +20,7 @@ module Api
               code: 200,
               message: request.patch? || request.put? ? I18n.t('api.users.registrations.updated_successfully') : message
             },
-            data: UserSerializer.render_as_hash(current_user, view: :extended)
+            data: UserSerializer.render_as_hash(current_user)
           }
         else
           error_message = I18n.t('api.users.registrations.creation_failed',
