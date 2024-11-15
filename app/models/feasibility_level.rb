@@ -3,7 +3,7 @@
 # Table name: feasibility_levels
 #
 #  id         :bigint           not null, primary key
-#  linguistic :integer          default("very_low")
+#  linguistic :integer          default("high")
 #  title      :string
 #  value      :float
 #  created_at :datetime         not null
@@ -21,5 +21,5 @@
 class FeasibilityLevel < ApplicationRecord
   belongs_to :user
 
-  enum :linguistic, { very_low: 1, low: 2, middle: 3, high: 4, very_high: 5 }
+  enum :linguistic, { high: 1, above_middle: 2, middle: 3, low: 4, very_low: 5 }
 end

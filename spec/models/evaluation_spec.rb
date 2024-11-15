@@ -3,7 +3,7 @@
 # Table name: evaluations
 #
 #  id                               :bigint           not null, primary key
-#  feasibility_linguistic           :integer          default("very_low")
+#  feasibility_linguistic           :integer          default("high")
 #  team_competencies                :integer
 #  team_competencies_and_experience :integer
 #  team_leaders_competencies        :integer

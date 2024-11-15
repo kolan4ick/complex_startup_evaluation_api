@@ -4,7 +4,11 @@ class ApplicationController < ActionController::API
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name feasibility_threshold adjustment_delta])
-    devise_parameter_sanitizer.permit(:account_update, keys: %i[name feasibility_threshold adjustment_delta])
+    devise_parameter_sanitizer.permit(:sign_up,
+                                      keys: [:name, :feasibility_threshold, :adjustment_delta,
+                                             { feasibility_levels_attributes: %i[id title value linguistic] }])
+    devise_parameter_sanitizer.permit(:account_update,
+                                      keys: [:name, :feasibility_threshold, :adjustment_delta,
+                                             { feasibility_levels_attributes: %i[id title value linguistic] }])
   end
 end

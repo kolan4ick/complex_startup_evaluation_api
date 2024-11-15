@@ -13,7 +13,7 @@ module Api
         render json: {
           status: {
             code: 200, message: 'Logged in successfully.',
-            data: { user: UserSerializer.render_as_hash(current_user) }
+            data: { user: UserSerializer.render_as_hash(current_user, view: :extended) }
           }
         }, status: :ok
       end

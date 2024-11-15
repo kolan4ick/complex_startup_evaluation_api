@@ -3,7 +3,7 @@
 # Table name: feasibility_levels
 #
 #  id         :bigint           not null, primary key
-#  linguistic :integer          default("very_low")
+#  linguistic :integer          default("high")
 #  title      :string
 #  value      :float
 #  created_at :datetime         not null

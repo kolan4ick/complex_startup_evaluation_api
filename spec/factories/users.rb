@@ -30,9 +30,5 @@ FactoryBot.define do
     adjustment_delta { 0.2 }
     password { 'topsecret' }
     password_confirmation { password }
-
-    after(:build) do |user|
-      user.feasibility_levels = build_list(:feasibility_level, 5)
-    end
   end
 end
