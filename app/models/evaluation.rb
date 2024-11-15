@@ -23,7 +23,6 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-
 class Evaluation < ApplicationRecord
   include Effectiveness::Evaluable
   include Risk::Evaluable
@@ -33,4 +32,9 @@ class Evaluation < ApplicationRecord
   enum :feasibility_linguistic, { high: 1, above_middle: 2, middle: 3, low: 4, very_low: 5 }
 
   belongs_to :user
+
+  validates :feasibility_linguistic, presence: true
+  validates :team_competencies, :team_competencies_and_experience, :team_leaders_competencies,
+            :team_professional_activity, :team_stability, presence: true,
+                                                          numericality: { greater_than: 0, less_than_or_equal_to: 10 }
 end

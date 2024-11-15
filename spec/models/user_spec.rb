@@ -25,7 +25,14 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe 'associations' do
-    it { should have_many :evaluations }
-    it { should have_many :feasibility_levels }
+    it { should have_many(:evaluations).dependent(:destroy) }
+    it { should have_many(:feasibility_levels).dependent(:destroy) }
+  end
+
+  describe 'validations' do
+    it { should validate_presence_of(:feasibility_threshold) }
+    it { should validate_presence_of(:adjustment_delta) }
+    it { should validate_numericality_of(:feasibility_threshold).is_greater_than(0).is_less_than_or_equal_to(1) }
+    it { should validate_numericality_of(:adjustment_delta).is_greater_than(0).is_less_than_or_equal_to(1) }
   end
 end

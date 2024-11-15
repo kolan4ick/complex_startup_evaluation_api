@@ -36,4 +36,21 @@ RSpec.describe Evaluation, type: :model do
     it { should have_many :risk_investment_scores }
     it { should have_many :risk_operational_scores }
   end
+
+  describe 'validations' do
+    it { should validate_presence_of :feasibility_linguistic }
+    it { should validate_presence_of :team_competencies }
+    it { should validate_presence_of :team_competencies_and_experience }
+    it { should validate_presence_of :team_leaders_competencies }
+    it { should validate_presence_of :team_professional_activity }
+    it { should validate_presence_of :team_stability }
+
+    it { should validate_numericality_of(:team_competencies).is_greater_than(0).is_less_than_or_equal_to(10) }
+    it {
+      should validate_numericality_of(:team_competencies_and_experience).is_greater_than(0).is_less_than_or_equal_to(10)
+    }
+    it { should validate_numericality_of(:team_leaders_competencies).is_greater_than(0).is_less_than_or_equal_to(10) }
+    it { should validate_numericality_of(:team_professional_activity).is_greater_than(0).is_less_than_or_equal_to(10) }
+    it { should validate_numericality_of(:team_stability).is_greater_than(0).is_less_than_or_equal_to(10) }
+  end
 end

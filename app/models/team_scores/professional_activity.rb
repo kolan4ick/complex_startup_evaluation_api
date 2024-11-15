@@ -7,7 +7,7 @@
 #  linguistic    :string
 #  order         :integer
 #  type          :string
-#  weight        :float
+#  weight        :integer          default(1), not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  evaluation_id :bigint           not null
