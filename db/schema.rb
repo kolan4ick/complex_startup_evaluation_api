@@ -48,7 +48,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_15_145249) do
   end
 
   create_table "risk_scores", force: :cascade do |t|
-    t.string "linguistic"
+    t.integer "linguistic", default: 1
     t.float "authenticity"
     t.string "type"
     t.bigint "evaluation_id", null: false
@@ -59,7 +59,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_15_145249) do
   end
 
   create_table "team_scores", force: :cascade do |t|
-    t.string "linguistic"
+    t.integer "linguistic", default: 1
     t.float "confidence"
     t.integer "weight", default: 1, null: false
     t.integer "order"

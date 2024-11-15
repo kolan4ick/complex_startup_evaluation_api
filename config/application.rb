@@ -1,6 +1,6 @@
-require_relative "boot"
+require_relative 'boot'
 
-require "rails/all"
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -15,6 +15,13 @@ module ComplexStartupEvaluation
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
+
+    config.i18n.available_locales = %i[uk en]
+    config.before_configuration do
+      I18n.load_path += Dir[Rails.root.join('config/locales/*.{rb,yml}').to_s]
+      I18n.default_locale = :uk
+      I18n.reload!
+    end
 
     # Configuration for the application, engines, and railties goes here.
     #

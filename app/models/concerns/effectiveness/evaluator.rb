@@ -90,12 +90,12 @@ module Effectiveness
 
     def linguistic_valuating(aggregated_score)
       case aggregated_score
-      when 0..0.21 then 'оцінка ідеї дуже низька'
-      when 0.21..0.36 then 'оцінка ідеї низька'
-      when 0.36..0.47 then 'оцінка ідеї середня'
-      when 0.47..0.67 then 'оцінка ідеї висока'
-      when 0.67..1 then 'оцінка ідеї дуже висока'
-      else 'оцінка ідеї невизначена'
+      when 0..0.21 then I18n.t('api.evaluator.effectiveness.very_low')
+      when 0.21..0.36 then I18n.t('api.evaluator.effectiveness.low')
+      when 0.36..0.47 then I18n.t('api.evaluator.effectiveness.average')
+      when 0.47..0.67 then I18n.t('api.evaluator.effectiveness.high')
+      when 0.67..1 then I18n.t('api.evaluator.effectiveness.very_high')
+      else I18n.t('api.evaluator.effectiveness.unknown')
       end
     end
 

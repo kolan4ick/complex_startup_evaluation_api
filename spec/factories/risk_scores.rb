@@ -4,7 +4,7 @@
 #
 #  id            :bigint           not null, primary key
 #  authenticity  :float
-#  linguistic    :string
+#  linguistic    :integer          default("low")
 #  order         :integer
 #  type          :string
 #  created_at    :datetime         not null
@@ -21,7 +21,7 @@
 #
 FactoryBot.define do
   factory :risk_score do
-    linguistic { 'ВС' }
+    linguistic { 1 }
     authenticity { 0.5 }
     evaluation
 

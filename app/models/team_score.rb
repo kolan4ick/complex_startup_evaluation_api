@@ -4,7 +4,7 @@
 #
 #  id            :bigint           not null, primary key
 #  confidence    :float
-#  linguistic    :string
+#  linguistic    :integer          default("low")
 #  order         :integer
 #  type          :string
 #  weight        :integer          default(1), not null
@@ -22,6 +22,13 @@
 #
 class TeamScore < ApplicationRecord
   belongs_to :evaluation
+
+  enum :linguistic, {
+    low: 1,
+    below_middle: 2,
+    middle: 3,
+    high: 4
+  }
 
   validates :linguistic, presence: true
   validates :confidence, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 1 }

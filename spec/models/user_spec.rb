@@ -3,10 +3,10 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
-#  adjustment_delta       :float
+#  adjustment_delta       :float            default(0.1), not null
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  feasibility_threshold  :float
+#  feasibility_threshold  :float            default(0.1), not null
 #  jti                    :string           default(""), not null
 #  name                   :string
 #  remember_created_at    :datetime

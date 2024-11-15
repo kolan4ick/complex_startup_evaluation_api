@@ -4,7 +4,7 @@
 #
 #  id            :bigint           not null, primary key
 #  authenticity  :float
-#  linguistic    :string
+#  linguistic    :integer          default("low")
 #  order         :integer
 #  type          :string
 #  created_at    :datetime         not null

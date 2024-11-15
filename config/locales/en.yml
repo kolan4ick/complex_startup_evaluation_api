@@ -1,31 +1,564 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  uk: "UA"
+  en: "EN"
+  api:
+    users:
+      registrations:
+        updated_successfully: "Updated successfully."
+        signed_up_successfully: "Signed up successfully."
+        creation_failed: "User couldn't be created successfully. %{errors}"
+      sessions:
+        logged_in_successfully: "Logged in successfully."
+        logged_out_successfully: "Logged out successfully."
+        no_active_session: "Couldn't find an active session."
+    evaluator:
+      effectiveness:
+        very_low: "The idea evaluation is very low"
+        low: "The idea evaluation is low"
+        average: "The idea evaluation is medium"
+        high: "The idea evaluation is high"
+        very_high: "The idea evaluation is very high"
+        unknown: "The idea evaluation is undefined"
+      risk:
+        no_matching_risk_level: "No matching risk level found"
+        security_level:
+          low: "The project's funding security level is low"
+          below_average: "The project's funding security level is below average"
+          average: "The project's funding security level is average"
+          above_average: "The project's funding security level is above average"
+          high: "The project's funding security level is high"
+          undefined: "The project's funding security level is undefined"
+      team:
+        rating:
+          low: "Low"
+          below_avg: "Below average"
+          avg: "Average"
+          above_avg: "Above average"
+          high: "High"
+      financing_feasibility:
+        linguistic_valuation:
+          very_low: "Very low level of project financing feasibility"
+          low: "Low level of project financing feasibility"
+          medium: "Medium level of project financing feasibility"
+          high: "High level of project financing feasibility"
+          very_high: "Very high level of project financing feasibility"
+          undefined: "Undefined level of project financing feasibility"
+
+  formtastic:
+    create: "Create %{model}"
+    update: "Update %{model}"
+  active_admin:
+    duplicate: "Duplicate"
+    dashboard: "Dashboard"
+    dashboard_welcome:
+      welcome: "Welcome to Active Admin. This is the default admin page."
+      call_to_action: "To add content here, check out 'app/admin/dashboard.rb'"
+    view: "View"
+    edit: "Edit"
+    delete: "Delete"
+    delete_confirmation: "Are you sure you want to delete this?"
+    new_model: "Create %{model}"
+    edit_model: "Edit %{model}"
+    delete_model: "Delete %{model}"
+    details: "%{model} details"
+    cancel: "Cancel"
+    empty: "Empty"
+    previous: "Prev."
+    next: "Next"
+    download: "Download:"
+    has_many_new: "Add %{model}"
+    has_many_delete: "Remove"
+    has_many_remove: "Delete"
+    move: "Move"
+    filters:
+      buttons:
+        filter: "Filter"
+        clear: "Clear"
+      predicates:
+        contains: "Contains"
+        equals: "="
+        starts_with: "Starts with"
+        ends_with: "Ends with"
+        greater_than: "Greater than"
+        less_than: "Less than"
+        from: "From"
+        to: "To"
+    search_status:
+      headline: "Search status:"
+      current_scope: "Scope:"
+      current_filters: "Current filter:"
+      no_current_filters: "None"
+    status_tag:
+      "yes": "Yes"
+      "no": "No"
+      "unset": "No"
+    main_content: "Create %{model}#main_content to display content."
+    logout: "Logout"
+    powered_by: "Powered by %{active_admin} %{version}"
+    sidebars:
+      filters: "Filters"
+      search_status: "Search status"
+    pagination:
+      empty: "No %{model} found"
+      one: "Result: <b>1</b> %{model}"
+      one_page: "Result: <b>%{n}</b> %{model}"
+      multiple: "Result: %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{total}</b>"
+      multiple_without_total: "Result: %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b>"
+      entry:
+        one: "entry"
+        few: "entries"
+        many: "entries"
+        other: "entries"
+    any: "Any"
+    blank_slate:
+      content: "There are no %{resource_name} yet."
+      link: "Create"
+    dropdown_actions:
+      button_label: "Actions"
+    batch_actions:
+      button_label: "Batch Actions"
+      default_confirmation: "Are you sure you want to do this?"
+      delete_confirmation: "Are you sure you want to delete %{plural_model}?"
+      successfully_destroyed:
+        one: "Successfully deleted: 1 %{model}"
+        few: "Successfully deleted: %{count} %{plural_model}"
+        many: "Successfully deleted: %{count} %{plural_model}"
+        other: "Successfully deleted: %{count} %{plural_model}"
+      selection_toggle_explanation: "(Select all / Deselect all)"
+      action_label: "%{title} selected"
+      labels:
+        destroy: "Delete"
+    comments:
+      resource_type: "Resource type"
+      author_type: "Author type"
+      body: "Text"
+      author: "Author"
+      add: "Add Comment"
+      resource: "Resource"
+      delete: "Delete Comment"
+      created_at: "Created at"
+      no_comments_yet: "No comments yet."
+      author_missing: "Anonymous"
+      title_content: "Comments (%{count})"
+      errors:
+        empty_text: "Comment not saved, text must not be empty."
+    devise:
+      username:
+        title: "Username"
+      email:
+        title: "Email"
+      subdomain:
+        title: "Subdomain"
+      password:
+        title: "Password"
+      sign_up:
+        title: "Sign Up"
+        submit: "Sign Up"
+      login:
+        title: "Login"
+        remember_me: "Remember me"
+        submit: "Sign In"
+      reset_password:
+        title: "Forgot Password?"
+        submit: "Reset Password"
+      change_password:
+        title: "Change Password"
+        submit: "Change Password"
+      unlock:
+        title: "Resend Unlock Instructions"
+        submit: "Resend Unlock Instructions"
+      resend_confirmation_instructions:
+        title: "Resend Confirmation Email"
+        submit: "Resend Confirmation Email"
+      links:
+        sign_up: "Sign Up"
+        sign_in: "Sign In"
+        forgot_your_password: "Forgot your password?"
+        sign_in_with_omniauth_provider: "Sign in with %{provider}"
+        resend_unlock_instructions: "Resend Unlock Instructions"
+        resend_confirmation_instructions: "Resend Confirmation Instructions"
+        another: "Other sign-in methods"
+    unsupported_browser:
+      headline: "Please note that ActiveAdmin no longer supports Internet Explorer 8 and below."
+      recommendation: "We recommend updating your browser version (<a href=\"http://windows.microsoft.com/ie\">Internet Explorer</a>, <a href=\"https://chrome.google.com/\">Google Chrome</a>, or <a href=\"https://mozilla.org/firefox/\">Firefox</a>)."
+      turn_off_compatibility_view: "If you are using IE 9 or above, make sure to <a href=\"https://support.microsoft.com/en-us/help/17471\">turn off Compatibility View</a>."
+    access_denied:
+      message: "You are not authorized to perform this action."
+    index_list:
+      table: "Table"
+      block: "Block"
+      grid: "Grid"
+      blog: "Blog"
+    edit_configure: "Edit Configuration"
+    clone_success: "Successfully cloned %{model}"
+    clone: "Clone"
+    create_success: "Successfully created %{model}"
+    create_error: "An error occurred while creating %{model}"
+    update_success: "Successfully updated %{model}"
+    update_error: "An error occurred while updating %{model}"
+    destroy_success: "%{model} was successfully deleted"
+    destroy_error: "An error occurred while deleting %{model}"
+    feedback:
+      reject: "Reject"
+      accept: "Accept"
+      accept_confirmation: "Are you sure you want to accept this feedback?"
+      reject_confirmation: "Are you sure you want to reject this feedback?"
+    sales:
+      search:
+        placeholder: "Search products by name"
+    update_notice: "%{model} was successfully updated"
+    create_notice: "%{model} was successfully created"
+    one_click_orders:
+      processed: "Mark as processed"
+    one_click_order:
+      process_confirmation: "Are you sure you want to change the status of this order?"
+    products:
+      confirmations:
+        image_delete: "Are you sure you want to delete this image?"
+    buttons:
+      delete: "Delete"
+  activerecord:
+    models:
+      user:
+        one: "User"
+        few: "Users"
+      evaluation:
+        one: "Evaluation"
+        few: "Evaluations"
+      team_score:
+        one: "Team Score"
+        few: "Team Scores"
+      effectiveness_score:
+        one: "Effectiveness Score"
+        few: "Effectiveness Scores"
+      risk_score:
+        one: "Risk Score"
+        few: "Risk Scores"
+      feasibility_level:
+        one: "Feasibility Level"
+        few: "Feasibility Levels"
+    attributes:
+      user:
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Password Confirmation"
+        remember_me: "Remember Me"
+        name: "Name"
+        jti: "JTI"
+        adjustment_delta: "Adjustment Coefficient"
+        feasibility_threshold: "Feasibility Threshold"
+        created_at: "Created At"
+        updated_at: "Updated At"
+      evaluation:
+        feasibility_linguistic: "Linguistic Feasibility"
+        team_competencies: "Team Competencies"
+        team_competencies_and_experience: "Team Competencies and Experience"
+        team_leaders_competencies: "Team Leaders' Competencies"
+        team_professional_activity: "Team Professional Activity"
+        team_stability: "Team Stability"
+        user_id: "User ID"
+        created_at: "Created At"
+        updated_at: "Updated At"
+      effectiveness_score:
+        order: "Order"
+        type: "Type"
+        value: "Value"
+        evaluation_id: "Evaluation ID"
+        created_at: "Created At"
+        updated_at: "Updated At"
+      feasibility_level:
+        linguistic: "Linguistic"
+        title: "Title"
+        value: "Value"
+        user_id: "User ID"
+        created_at: "Created At"
+        updated_at: "Updated At"
+      risk_score:
+        authenticity: "Authenticity"
+        linguistic: "Linguistic"
+        order: "Order"
+        type: "Type"
+        evaluation_id: "Evaluation ID"
+        created_at: "Created At"
+        updated_at: "Updated At"
+      team_score:
+        confidence: "Confidence"
+        linguistic: "Linguistic"
+        order: "Order"
+        type: "Type"
+        weight: "Weight"
+        evaluation_id: "Evaluation ID"
+        created_at: "Created At"
+        updated_at: "Updated At"
+    errors:
+      messages:
+        record_invalid: 'Errors occurred: %{errors}'
+        restrict_dependent_destroy:
+          has_one: 'Cannot delete record because of a dependent: %{record}'
+          has_many: 'Cannot delete record because of dependents: %{record}'
+  date:
+    abbr_day_names:
+      - Sun.
+      - Mon.
+      - Tue.
+      - Wed.
+      - Thu.
+      - Fri.
+      - Sat.
+    abbr_month_names:
+      -
+      - Jan.
+      - Feb.
+      - Mar.
+      - Apr.
+      - May
+      - Jun.
+      - Jul.
+      - Aug.
+      - Sep.
+      - Oct.
+      - Nov.
+      - Dec.
+    day_names:
+      - Sunday
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+    formats:
+      default: "%d.%m.%Y"
+      long: "%d %B %Y"
+      short: "%d %b"
+    month_names:
+      -
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - October
+      - November
+      - December
+    order:
+      - :day
+      - :month
+      - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: "about %{count} hour"
+        few: "about %{count} hours"
+        many: "about %{count} hours"
+        other: "about %{count} hours"
+      about_x_months:
+        one: "about %{count} month"
+        few: "about %{count} months"
+        many: "about %{count} months"
+        other: "about %{count} month"
+      about_x_years:
+        one: "about %{count} year"
+        few: "about %{count} years"
+        many: "about %{count} years"
+        other: "about %{count} year"
+      almost_x_years:
+        one: "almost %{count} year"
+        few: "almost %{count} years"
+        many: "almost %{count} years"
+        other: "almost %{count} years"
+      half_a_minute: "half a minute"
+      less_than_x_seconds:
+        one: "less than %{count} second"
+        few: "less than %{count} seconds"
+        many: "less than %{count} seconds"
+        other: "less than %{count} second"
+      less_than_x_minutes:
+        one: "less than %{count} minute"
+        few: "less than %{count} minutes"
+        many: "less than %{count} minutes"
+        other: "less than %{count} minute"
+      over_x_years:
+        one: "over %{count} year"
+        few: "over %{count} years"
+        many: "over %{count} years"
+        other: "over %{count} year"
+      x_seconds:
+        one: "%{count} second"
+        few: "%{count} seconds"
+        many: "%{count} seconds"
+        other: "%{count} second"
+      x_minutes:
+        one: "%{count} minute"
+        few: "%{count} minutes"
+        many: "%{count} minutes"
+        other: "%{count} minute"
+      x_days:
+        one: "%{count} day"
+        few: "%{count} days"
+        many: "%{count} days"
+        other: "%{count} day"
+      x_months:
+        one: "%{count} month"
+        few: "%{count} months"
+        many: "%{count} months"
+        other: "%{count} month"
+      x_years:
+        one: "%{count} year"
+        few: "%{count} years"
+        many: "%{count} years"
+        other: "%{count} year"
+    prompts:
+      second: "Second"
+      minute: "Minute"
+      hour: "Hour"
+      day: "Day"
+      month: "Month"
+      year: "Year"
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: "must be accepted"
+      blank: "can't be blank"
+      confirmation: "doesn't match confirmation"
+      empty: "can't be empty"
+      equal_to: "must be equal to %{count}"
+      even: "must be even"
+      exclusion: "is reserved"
+      greater_than: "must be greater than %{count}"
+      greater_than_or_equal_to: "must be greater than or equal to %{count}"
+      inclusion: "is not included in the list"
+      invalid: "is invalid"
+      less_than: "must be less than %{count}"
+      less_than_or_equal_to: "must be less than or equal to %{count}"
+      model_invalid: 'Errors occurred: %{errors}'
+      not_a_number: "is not a number"
+      not_an_integer: "is not an integer"
+      odd: "must be odd"
+      other_than: "must be different from %{count}"
+      present: "must be blank"
+      required: "can't be blank"
+      taken: "is already taken"
+      too_long:
+        one: "is too long (maximum is %{count} character)"
+        few: "is too long (maximum is %{count} characters)"
+        many: "is too long (maximum is %{count} characters)"
+        other: "is too long (maximum is %{count} characters)"
+      too_short:
+        one: "is too short (minimum is %{count} character)"
+        few: "is too short (minimum is %{count} characters)"
+        many: "is too short (minimum is %{count} characters)"
+        other: "is too short (minimum is %{count} characters)"
+      wrong_length:
+        one: "is the wrong length (should be %{count} character)"
+        few: "is the wrong length (should be %{count} characters)"
+        many: "is the wrong length (should be %{count} characters)"
+        other: "is the wrong length (should be %{count} characters)"
+      promo_codes:
+        invalid: "Invalid promo code"
+        unavailable: "This promo code is no longer valid"
+        used: "You have already used this promo code!"
+        after_start: "must be after the start"
+        users:
+          privacy_policy: "You must agree to the processing of personal data"
+        cart:
+          add: "Unfortunately, this quantity of products is not available in stock. Maximum quantity: %{count}."
+        template:
+          body: "Errors occurred in the following fields:"
+          header:
+            one: "%{model} could not be saved due to %{count} error"
+            few: "%{model} could not be saved due to %{count} errors"
+            many: "%{model} could not be saved due to %{count} errors"
+            other: "%{model} could not be saved due to %{count} errors"
+  helpers:
+    select:
+      prompt: "Choose:             "
+    submit:
+      create: "Create %{model}"
+      submit: "Save %{model}"
+      update: "Save %{model}"
+  number:
+    currency:
+      format:
+        delimiter: " "
+        format: "%n %u"
+        precision: 2
+        separator: ","
+        significant: false
+        strip_insignificant_zeros: false
+        unit: "UAH"
+    format:
+      delimiter: " "
+      precision: 3
+      separator: ","
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion:
+            one: "Billion"
+            few: "Billion"
+            many: "Billion"
+            other: "Billion"
+          million:
+            one: "Million"
+            few: "Million"
+            many: "Million"
+            other: "Million"
+          quadrillion:
+            one: "Quadrillion"
+            few: "Quadrillion"
+            many: "Quadrillion"
+            other: "Quadrillion"
+          thousand:
+            one: "Thousand"
+            few: "Thousand"
+            many: "Thousand"
+            other: "Thousand"
+          trillion:
+            one: "Trillion"
+            few: "Trillion"
+            many: "Trillion"
+            other: "Trillion"
+          unit: ""
+      format:
+        delimiter: ""
+        precision: 1
+        significant: false
+        strip_insignificant_zeros: false
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: "byte"
+            few: "bytes"
+            many: "bytes"
+            other: "byte"
+          gb: "GB"
+          kb: "KB"
+          mb: "MB"
+          tb: "TB"
+    percentage:
+      format:
+        delimiter: ""
+    precision:
+      format:
+        delimiter: ""
+  support:
+    array:
+      last_word_connector: " and "
+      two_words_connector: " and "
+      words_connector: ", "
+  time:
+    am: "AM"
+    formats:
+      default: "%a, %d %b %Y, %H:%M:%S %z"
+      long: "%d %B %Y, %H:%M"
+      short: "%d %b, %H:%M"
+    pm: "PM"
