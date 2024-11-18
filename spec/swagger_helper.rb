@@ -240,12 +240,63 @@ RSpec.configure do |config|
                 required: %w[team_competencies feasibility_linguistic]
               }
             }
+          },
+          User: {
+            type: :object,
+            properties: {
+              id: { type: :integer, example: 1 },
+              email: { type: :string, example: 'user@example.com' },
+              name: { type: :string, example: 'Mykola' },
+              feasibility_threshold: { type: :number, format: :float, example: 0.66 },
+              adjustment_delta: { type: :number, format: :float, example: 0.4 },
+              created_at: { type: :string, format: :date_time },
+              updated_at: { type: :string, format: :date_time }
+            }
+          },
+          UserRegisterParams: {
+            type: :object,
+            properties: {
+              user: {
+                type: :object,
+                properties: {
+                  email: { type: :string, example: 'user@example.com' },
+                  password: { type: :string, example: 'password' },
+                  password_confirmation: { type: :string, example: 'password' }
+                }
+              }
+            }
+          },
+          UserUpdateParams: {
+            type: :object,
+            properties: {
+              user: {
+                type: :object,
+                properties: {
+                  email: { type: :string, example: 'user@example.com' },
+                  name: { type: :string, example: 'Mykola' },
+                  feasibility_threshold: { type: :number, format: :float, example: 0.66 },
+                  adjustment_delta: { type: :number, format: :float, example: 0.4 }
+                }
+              }
+            },
+            UserLoginParams: {
+              type: :object,
+              properties: {
+                user: {
+                  type: :object,
+                  properties: {
+                    email: { type: :string, example: 'user@example.com' },
+                    password: { type: :string, example: 'password' }
+                  }
+                }
+              }
+            }
           }
-        }
-      },
-      security: [
-        { bearerAuth: [] }
-      ]
+        },
+        security: [
+          { bearerAuth: [] }
+        ]
+      }
     }
   }
 

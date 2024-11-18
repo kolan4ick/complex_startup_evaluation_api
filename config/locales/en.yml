@@ -7,6 +7,8 @@ en:
         updated_successfully: "Updated successfully."
         signed_up_successfully: "Signed up successfully."
         creation_failed: "User couldn't be created successfully. %{errors}"
+        update_failed: "Update failed"
+        generic_error: "Something went wrong. Please try again later."
       sessions:
         logged_in_successfully: "Logged in successfully."
         logged_out_successfully: "Logged out successfully."

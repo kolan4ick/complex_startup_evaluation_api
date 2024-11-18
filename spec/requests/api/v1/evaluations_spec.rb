@@ -1,6 +1,9 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/evaluations', type: :request do
+  let(:user) { create(:user) }
+  let(:Authorization) { nil }
+
   path '/api/v1/evaluations' do
     get('List evaluations') do
       tags 'Evaluations'
@@ -10,7 +13,6 @@ RSpec.describe 'api/v1/evaluations', type: :request do
       response(200, 'successful') do
         schema type: :array, items: { '$ref' => '#/components/schemas/Evaluation' }
 
-        let(:user) { create(:user) }
         let!(:evaluation) { create(:evaluation, user:) }
         let(:Authorization) { Devise::JWT::TestHelpers.auth_headers({}, user)['Authorization'] }
 
@@ -30,7 +32,6 @@ RSpec.describe 'api/v1/evaluations', type: :request do
       parameter name: :evaluation, in: :body, schema: { '$ref' => '#/components/schemas/EvaluationParams' }
 
       response(200, 'successful') do
-        let(:user) { create(:user) }
         let(:Authorization) { Devise::JWT::TestHelpers.auth_headers({}, user)['Authorization'] }
         let(:evaluation) do
           {
@@ -40,7 +41,20 @@ RSpec.describe 'api/v1/evaluations', type: :request do
               team_leaders_competencies: 7,
               team_professional_activity: 7,
               team_stability: 7,
-              feasibility_linguistic: 'high'
+              effectiveness_sum_scores_attributes: attributes_for_list(:effectiveness_sum_score, 5),
+              effectiveness_min_scores_attributes: attributes_for_list(:effectiveness_min_score, 5),
+              effectiveness_max_scores_attributes: attributes_for_list(:effectiveness_max_score, 5),
+              effectiveness_desired_scores_attributes: attributes_for_list(:effectiveness_desired_score, 5),
+              effectiveness_weight_scores_attributes: attributes_for_list(:effectiveness_weight_score, 5),
+              risk_financial_scores_attributes: attributes_for_list(:risk_financial_score, 5),
+              risk_investment_scores_attributes: attributes_for_list(:risk_investment_score, 5),
+              risk_operational_scores_attributes: attributes_for_list(:risk_operational_score, 9),
+              risk_innovation_activity_scores_attributes: attributes_for_list(:risk_innovation_activity_score, 5),
+              team_stability_scores_attributes: attributes_for_list(:team_stability_score, 2),
+              team_professional_competency_scores_attributes: attributes_for_list(:team_professional_competency_score,
+                                                                                  5),
+              team_professional_activity_scores_attributes: attributes_for_list(:team_professional_activity_score, 4),
+              feasibility_linguistic: :high
             }
           }
         end
@@ -49,6 +63,9 @@ RSpec.describe 'api/v1/evaluations', type: :request do
       end
 
       response(401, 'unauthorized') do
+        let(:Authorization) { nil }
+        let(:evaluation) { nil }
+
         run_test!
       end
     end
@@ -73,6 +90,7 @@ RSpec.describe 'api/v1/evaluations', type: :request do
       end
 
       response(401, 'unauthorized') do
+        let(:Authorization) { nil }
         let(:id) { create(:evaluation).id }
         run_test!
       end

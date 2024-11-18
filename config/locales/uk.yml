@@ -7,6 +7,8 @@ uk:
         updated_successfully: "Успішно оновлено."
         signed_up_successfully: "Успішно зареєстровано."
         creation_failed: "Не вдалося створити користувача. %{errors}"
+        update_failed: "Оновлення неуспішне"
+        generic_error: "Виникла помилка"
       sessions:
         logged_in_successfully: "Успішний вхід."
         logged_out_successfully: "Успішний вихід."

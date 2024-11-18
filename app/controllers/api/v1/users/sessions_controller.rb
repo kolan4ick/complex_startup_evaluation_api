@@ -10,14 +10,8 @@ module Api
       private
 
       def respond_with(current_user, _opts = {})
-        message = I18n.t('api.users.sessions.logged_in_successfully')
-
         render json: {
-          status: {
-            code: 200,
-            message: message,
-            data: { user: UserSerializer.render_as_hash(current_user, view: :extended) }
-          }
+          user: UserSerializer.render_as_hash(current_user, view: :extended)
         }, status: :ok
       end
 

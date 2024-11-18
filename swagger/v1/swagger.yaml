@@ -79,65 +79,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                user:
-                  type: object
-                  properties:
-                    email:
-                      type: string
-                      format: email
-                      example: user@example.com
-                    password:
-                      type: string
-                      format: password
-                      example: password123
-                    password_confirmation:
-                      type: string
-                      format: password
-                      example: password123
-                  required:
-                  - email
-                  - password
-                  - password_confirmation
-    put:
-      summary: Update user
-      tags:
-      - Users
-      security:
-      - bearerAuth: []
-      parameters: []
-      responses:
-        '200':
-          description: successful response
-        '401':
-          description: unauthorized
-        '422':
-          description: unprocessable entity
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                user:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                      example: Mykola
-                    email:
-                      type: string
-                      format: email
-                      example: updated_user@example.com
-                    feasibility_threshold:
-                      type: number
-                      format: float
-                      example: 0.66
-                    adjustment_delta:
-                      type: number
-                      format: float
-                      example: 0.4
+              "$ref": "#/components/schemas/UserParams"
   "/api/v1/users/sign_in":
     post:
       summary: Create session
@@ -561,5 +503,78 @@ components:
           required:
           - team_competencies
           - feasibility_linguistic
-security:
-- bearerAuth: []
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        email:
+          type: string
+          example: user@example.com
+        name:
+          type: string
+          example: Mykola
+        feasibility_threshold:
+          type: number
+          format: float
+          example: 0.66
+        adjustment_delta:
+          type: number
+          format: float
+          example: 0.4
+        created_at:
+          type: string
+          format: date_time
+        updated_at:
+          type: string
+          format: date_time
+    UserRegisterParams:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            email:
+              type: string
+              example: user@example.com
+            password:
+              type: string
+              example: password
+            password_confirmation:
+              type: string
+              example: password
+    UserUpdateParams:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            email:
+              type: string
+              example: user@example.com
+            name:
+              type: string
+              example: Mykola
+            feasibility_threshold:
+              type: number
+              format: float
+              example: 0.66
+            adjustment_delta:
+              type: number
+              format: float
+              example: 0.4
+      UserLoginParams:
+        type: object
+        properties:
+          user:
+            type: object
+            properties:
+              email:
+                type: string
+                example: user@example.com
+              password:
+                type: string
+                example: password
+  security:
+  - bearerAuth: []

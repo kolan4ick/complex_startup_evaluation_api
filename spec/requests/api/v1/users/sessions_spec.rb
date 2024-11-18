@@ -9,24 +9,22 @@ RSpec.describe 'users/sessions', type: :request do
       tags 'Users'
       consumes 'application/json'
       produces 'application/json'
-      parameter name: :user, in: :body, schema: {
-        type: :object,
-        properties: {
-          user: {
-            type: :object,
-            properties: {
-              email: { type: :string, format: :email, example: 'user@example.com' },
-              password: { type: :string, format: :password, example: 'topsecret' }
-            },
-            required: %w[email password]
-          }
-        }
-      }
+      parameter name: :user, in: :body, schema: { '$ref' => '#/components/schemas/UserLoginParams' }
+      security [bearerAuth: []]
 
       response(200, 'successful response (user not signed in)') do
-        let!(:user) { create(:user, password: 'topsecret') }
-        let(:user_params) { { email: user.email, password: 'topsecret' } }
-        let(:user) { { user: user_params } }
+        before do
+          create(:user, email: 'test@example.com', password: 'topsecret')
+        end
+
+        let(:user) do
+          {
+            user: {
+              email: 'test@example.com',
+              password: 'topsecret'
+            }
+          }
+        end
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -39,8 +37,15 @@ RSpec.describe 'users/sessions', type: :request do
       end
 
       response(200, 'successful response (user signed in without params)') do
-        let!(:user) { create(:user, password: 'topsecret') }
-        let(:Authorization) { Devise::JWT::TestHelpers.auth_headers(headers, user)['Authorization'] }
+        let(:Authorization) do
+          Devise::JWT::TestHelpers.auth_headers(headers, create(:user, password: 'topsecret'))['Authorization']
+        end
+
+        let(:user) do
+          {
+            user: {}
+          }
+        end
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -49,12 +54,19 @@ RSpec.describe 'users/sessions', type: :request do
             }
           }
         end
+
         run_test!
       end
 
       response(401, 'unauthorized (invalid credentials)') do
-        let(:user_params) { { email: 'invalid@example.com', password: 'wrongpassword' } }
-        let(:user) { { user: user_params } }
+        let(:user) do
+          {
+            user: {
+              email: 'invalid@example.com',
+              password: 'wrongpassword'
+            }
+          }
+        end
 
         after do |example|
           example.metadata[:response][:content] = {
