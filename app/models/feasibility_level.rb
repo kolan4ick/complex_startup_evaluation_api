@@ -4,6 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  linguistic :integer          default("high")
+#  order      :integer          default(1)
 #  title      :string
 #  value      :float
 #  created_at :datetime         not null

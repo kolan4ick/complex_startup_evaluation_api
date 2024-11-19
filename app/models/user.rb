@@ -46,29 +46,33 @@ class User < ApplicationRecord
 
   # Ensures the user has exactly five feasibility levels before updating.
   def create_or_validate_feasibility_levels
-    create_missing_feasibility_levels if feasibility_levels.size != 5
+    # Access in-memory feasibility_levels (with any pending changes)
+    current_feasibility_levels = feasibility_levels.target
 
-    unless feasibility_levels.size != 5 || feasibility_levels.pluck(:linguistic).sort != FeasibilityLevel.linguistics.keys.sort
-      return
-    end
+    # Create any missing levels if necessary
+    create_missing_feasibility_levels(current_feasibility_levels)
 
-    errors.add(:feasibility_levels, 'should consist of only five levels of feasibility and include all required keys')
+    # Ensure all linguistic keys are present and unique
+    linguistic_keys = current_feasibility_levels.map(&:linguistic).sort
+    return unless current_feasibility_levels.size != 5 || linguistic_keys != FeasibilityLevel.linguistics.keys.sort
+
+    errors.add(:feasibility_levels, 'should consist of exactly five levels with all required linguistic keys')
     throw(:abort)
   end
 
-  # Creates missing feasibility levels if any are absent.
-  def create_missing_feasibility_levels
-    existing_levels = feasibility_levels.pluck(:linguistic)
+  # Creates missing feasibility levels in memory if any are absent.
+  def create_missing_feasibility_levels(current_feasibility_levels)
+    existing_levels = current_feasibility_levels.map(&:linguistic)
     missing_levels = FeasibilityLevel.linguistics.keys - existing_levels
 
     missing_levels.each do |level|
-      feasibility_levels.create!(linguistic: level, value: 0.1, title: level.to_s.humanize)
+      feasibility_levels.build(linguistic: level, value: 0.1, title: level.to_s.humanize)
     end
   end
 
   def create_feasibility_levels
-    FeasibilityLevel.linguistics.each_key do |level|
-      feasibility_levels.create!(linguistic: level, value: 0.1, title: level.to_s.humanize)
+    FeasibilityLevel.linguistics.each_key.with_index(1) do |level, index|
+      feasibility_levels.create!(linguistic: level, value: 0.1, title: level.to_s.humanize, order: index)
     end
   end
 end
