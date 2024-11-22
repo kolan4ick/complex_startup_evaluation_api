@@ -3,10 +3,22 @@ module Api
     class EvaluationsController < ApplicationController
       before_action :authenticate_user!
 
-      def index
-        evaluations = current_user.evaluations
+      def index # rubocop:disable Metrics/AbcSize
+        page = params[:page] || 1
+        per_page = params[:per_page] || 20
+        reverse = params[:reverse] || false
 
-        render json: EvaluationSerializer.render_as_hash(evaluations)
+        evaluations = current_user.evaluations.order(created_at: reverse ? :desc : :asc).page(page).per(per_page)
+
+        render json: {
+          evaluations: EvaluationSerializer.render_as_hash(evaluations),
+          meta: {
+            current_page: evaluations.current_page,
+            total_pages: evaluations.total_pages,
+            total_count: evaluations.total_count,
+            per_page: evaluations.limit_value
+          }
+        }
       end
 
       def show
