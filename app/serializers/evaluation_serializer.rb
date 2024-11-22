@@ -14,4 +14,7 @@ class EvaluationSerializer < Blueprinter::Base
   association :risk_innovation_activity_scores, blueprint: RiskScoreSerializer
   association :risk_investment_scores, blueprint: RiskScoreSerializer
   association :risk_operational_scores, blueprint: RiskScoreSerializer
+  association :team_stability_scores, blueprint: TeamScoreSerializer
+  association :team_professional_competency_scores, blueprint: TeamScoreSerializer
+  association :team_professional_activity_scores, blueprint: TeamScoreSerializer
 end

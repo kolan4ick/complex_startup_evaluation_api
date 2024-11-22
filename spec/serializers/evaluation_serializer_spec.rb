@@ -104,6 +104,39 @@ RSpec.describe EvaluationSerializer do
             updated_at: score.updated_at
           }
         end,
+        team_professional_activity_scores: evaluation.team_professional_activity_scores.map do |score|
+          {
+            id: score.id,
+            linguistic: score.linguistic,
+            confidence: score.confidence,
+            weight: score.weight,
+            order: score.order,
+            created_at: score.created_at,
+            updated_at: score.updated_at
+          }
+        end,
+        team_professional_competency_scores: evaluation.team_professional_competency_scores.map do |score|
+          {
+            id: score.id,
+            linguistic: score.linguistic,
+            confidence: score.confidence,
+            weight: score.weight,
+            order: score.order,
+            created_at: score.created_at,
+            updated_at: score.updated_at
+          }
+        end,
+        team_stability_scores: evaluation.team_stability_scores.map do |score|
+          {
+            id: score.id,
+            linguistic: score.linguistic,
+            confidence: score.confidence,
+            weight: score.weight,
+            order: score.order,
+            created_at: score.created_at,
+            updated_at: score.updated_at
+          }
+        end,
         team_competencies: evaluation.team_competencies,
         team_competencies_and_experience: evaluation.team_competencies_and_experience,
         team_leaders_competencies: evaluation.team_leaders_competencies,
