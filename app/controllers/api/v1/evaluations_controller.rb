@@ -24,7 +24,15 @@ module Api
       def show
         evaluation = Evaluation.find(params[:id])
 
-        render json: EvaluationSerializer.render_as_hash(evaluation)
+        effectiveness = evaluation.evaluate_effectiveness
+        risk = evaluation.evaluate_risk
+        team = evaluation.evaluate_team
+        financing_feasibility = evaluation.evaluate_financing_feasibility(effectiveness[:aggregated_score],
+                                                                          risk[:aggregated_membership],
+                                                                          team[:defuzzification])
+
+        render json: { evaluation: EvaluationSerializer.render_as_hash(evaluation),
+                       result: { effectiveness:, risk:, team:, financing_feasibility: } }
       end
 
       def create
