@@ -30,5 +30,8 @@ FactoryBot.define do
     factory :effectiveness_max_score, class: 'EffectivenessScores::Max'
     factory :effectiveness_desired_score, class: 'EffectivenessScores::Desired'
     factory :effectiveness_weight_score, class: 'EffectivenessScores::Weight'
+    factory :effectiveness_desired_term_score, class: 'EffectivenessScores::DesiredTerm' do
+      value { 3 }
+    end
   end
 end

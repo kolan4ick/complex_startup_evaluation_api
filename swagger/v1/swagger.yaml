@@ -17,9 +17,35 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  "$ref": "#/components/schemas/Evaluation"
+                type: object
+                properties:
+                  evaluations:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/Evaluation"
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      total_pages:
+                        type: integer
+                        example: 1
+                      total_count:
+                        type: integer
+                        example: 1
+                      per_page:
+                        type: integer
+                        example: 20
+                    required:
+                    - current_page
+                    - total_pages
+                    - total_count
+                    - per_page
+                required:
+                - evaluations
+                - meta
         '401':
           description: unauthorized
     post:
@@ -59,7 +85,7 @@ paths:
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Evaluation"
+                "$ref": "#/components/schemas/EvaluationResponse"
         '401':
           description: unauthorized
         '404':
@@ -79,13 +105,34 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/UserParams"
+              "$ref": "#/components/schemas/UserRegisterParams"
+    put:
+      summary: Update user
+      tags:
+      - Users
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: successful response
+        '401':
+          description: unauthorized
+        '422':
+          description: unprocessable entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/UserUpdateParams"
   "/api/v1/users/sign_in":
     post:
       summary: Create session
       tags:
       - Users
       parameters: []
+      security:
+      - bearerAuth: []
       responses:
         '200':
           description: successful response (user signed in without params)
@@ -95,22 +142,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                user:
-                  type: object
-                  properties:
-                    email:
-                      type: string
-                      format: email
-                      example: user@example.com
-                    password:
-                      type: string
-                      format: password
-                      example: topsecret
-                  required:
-                  - email
-                  - password
+              "$ref": "#/components/schemas/UserLoginParams"
 servers:
 - url: "{host}"
   variables:
@@ -349,6 +381,21 @@ components:
                 order: 4
               - value: 4
                 order: 5
+            effectiveness_desired_term_scores_attributes:
+              type: array
+              items:
+                "$ref": "#/components/schemas/EffectivenessScore"
+              example:
+              - value: 1
+                order: 1
+              - value: 2
+                order: 2
+              - value: 3
+                order: 3
+              - value: 4
+                order: 4
+              - value: 5
+                order: 5
             risk_financial_scores_attributes:
               type: array
               items:
@@ -576,5 +623,49 @@ components:
               password:
                 type: string
                 example: password
+    EvaluationsResponse:
+      type: object
+      properties:
+        evaluations:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Evaluation"
+        meta:
+          type: object
+          properties:
+            current_page:
+              type: integer
+              example: 1
+            total_pages:
+              type: integer
+              example: 1
+            total_count:
+              type: integer
+              example: 10
+            per_page:
+              type: integer
+              example: 20
+          required:
+          - current_page
+          - total_pages
+          - total_count
+          - per_page
+      required:
+      - evaluations
+      - meta
+    EvaluationResponse:
+      type: object
+      properties:
+        evaluation:
+          "$ref": "#/components/schemas/Evaluation"
+        result:
+          type: object
+        user:
+          "$ref": "#/components/schemas/User"
+      required:
+      - id
+      - created_at
+      - updated_at
+      - user
   security:
   - bearerAuth: []

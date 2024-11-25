@@ -34,7 +34,6 @@ RSpec.describe UserSerializer do
           email: user.email,
           feasibility_threshold: user.feasibility_threshold,
           adjustment_delta: user.adjustment_delta,
-          evaluations: [],
           feasibility_levels: user.feasibility_levels.map do |f_l|
             {
               id: f_l.id,

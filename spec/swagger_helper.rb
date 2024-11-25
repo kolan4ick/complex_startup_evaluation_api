@@ -159,6 +159,17 @@ RSpec.configure do |config|
                       { value: 4, order: 5 }
                     ]
                   },
+                  effectiveness_desired_term_scores_attributes: {
+                    type: :array,
+                    items: { '$ref' => '#/components/schemas/EffectivenessScore' },
+                    example: [
+                      { value: 1, order: 1 },
+                      { value: 2, order: 2 },
+                      { value: 3, order: 3 },
+                      { value: 4, order: 4 },
+                      { value: 5, order: 5 }
+                    ]
+                  },
                   risk_financial_scores_attributes: {
                     type: :array,
                     items: { '$ref' => '#/components/schemas/RiskScore' },
@@ -291,6 +302,29 @@ RSpec.configure do |config|
                 }
               }
             }
+          },
+          EvaluationsResponse: {
+            type: :object,
+            properties: {
+              evaluations: {
+                type: :array,
+                items: { '$ref' => '#/components/schemas/Evaluation' }
+              },
+              meta: {
+                type: :object,
+                properties: {
+                  current_page: { type: :integer, example: 1 },
+                  total_pages: { type: :integer, example: 1 },
+                  total_count: { type: :integer, example: 10 },
+                  per_page: { type: :integer, example: 20 }
+                },
+                required: %w[current_page total_pages total_count per_page]
+              }
+            },
+            required: %w[evaluations meta]
+          },
+          EvaluationResponse: {
+            type: :object
           }
         },
         security: [

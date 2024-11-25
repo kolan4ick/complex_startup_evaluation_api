@@ -10,6 +10,7 @@ class EvaluationSerializer < Blueprinter::Base
   association :effectiveness_max_scores, blueprint: EffectivenessScoreSerializer
   association :effectiveness_desired_scores, blueprint: EffectivenessScoreSerializer
   association :effectiveness_weight_scores, blueprint: EffectivenessScoreSerializer
+  association :effectiveness_desired_term_scores, blueprint: EffectivenessScoreSerializer
   association :risk_financial_scores, blueprint: RiskScoreSerializer
   association :risk_innovation_activity_scores, blueprint: RiskScoreSerializer
   association :risk_investment_scores, blueprint: RiskScoreSerializer
