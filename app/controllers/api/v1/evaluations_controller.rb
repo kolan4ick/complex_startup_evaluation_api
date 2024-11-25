@@ -53,8 +53,6 @@ module Api
           team:,
           financing_feasibility:
         }
-
-        # TODO: Add pdf report generation here in the future
       end
 
       private
@@ -68,6 +66,7 @@ module Api
                                            effectiveness_max_scores_attributes: %i[value order],
                                            effectiveness_desired_scores_attributes: %i[value order],
                                            effectiveness_weight_scores_attributes: %i[value order],
+                                           effectiveness_desired_term_scores_attributes: %i[value order],
                                            risk_financial_scores_attributes: %i[linguistic authenticity order],
                                            risk_investment_scores_attributes: %i[linguistic authenticity order],
                                            risk_operational_scores_attributes: %i[linguistic authenticity order],

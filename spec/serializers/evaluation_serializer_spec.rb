@@ -64,6 +64,15 @@ RSpec.describe EvaluationSerializer do
             updated_at: score.updated_at
           }
         end,
+        effectiveness_desired_term_scores: evaluation.effectiveness_desired_term_scores.map do |score|
+          {
+            id: score.id,
+            value: score.value,
+            order: score.order,
+            created_at: score.created_at,
+            updated_at: score.updated_at
+          }
+        end,
         risk_financial_scores: evaluation.risk_financial_scores.map do |score|
           {
             id: score.id,

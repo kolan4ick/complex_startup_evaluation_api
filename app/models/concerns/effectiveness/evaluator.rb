@@ -7,7 +7,7 @@ module Effectiveness
       @min_scores = scores[:min_scores]
       @max_scores = scores[:max_scores]
       @desired_scores = scores[:desired_scores]
-      @desired_terms = scores[:desired_terms]
+      @desired_terms = scores[:desired_terms].map(&:to_i)
       @weight_scores = normalize(scores[:weight_scores])
     end
 
@@ -22,7 +22,7 @@ module Effectiveness
       membership_u = membership_u(membership_actual, membership_desired)
 
       # Third level
-      max_membership = max_membership(membership_u, @desired_terms)
+      max_membership = max_membership(membership_u)
 
       # Final level
       aggregated_score = aggregated_valuating(max_membership, @weight_scores)
@@ -66,12 +66,12 @@ module Effectiveness
       end
     end
 
-    def max_membership(membership_u, desired_terms)
+    def max_membership(membership_u)
       res = []
 
       membership_u.each_with_index do |v, i|
-        a = v[desired_terms[i]] || 0
-        b = (v[desired_terms[i] + 1] || v[desired_terms[i] - 1] || 0) / 2
+        a = v[@desired_terms[i]] || 0
+        b = (v[@desired_terms[i] + 1] || v[@desired_terms[i] - 1] || 0) / 2
         res << [a, b].max
       end
 

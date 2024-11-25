@@ -11,7 +11,24 @@ RSpec.describe 'api/v1/evaluations', type: :request do
       security [bearerAuth: []]
 
       response(200, 'successful') do
-        schema type: :array, items: { '$ref' => '#/components/schemas/Evaluation' }
+        schema type: :object,
+               properties: {
+                 evaluations: {
+                   type: :array,
+                   items: { '$ref' => '#/components/schemas/Evaluation' }
+                 },
+                 meta: {
+                   type: :object,
+                   properties: {
+                     current_page: { type: :integer, example: 1 },
+                     total_pages: { type: :integer, example: 1 },
+                     total_count: { type: :integer, example: 1 },
+                     per_page: { type: :integer, example: 20 }
+                   },
+                   required: %w[current_page total_pages total_count per_page]
+                 }
+               },
+               required: %w[evaluations meta]
 
         let!(:evaluation) { create(:evaluation, user:) }
         let(:Authorization) { Devise::JWT::TestHelpers.auth_headers({}, user)['Authorization'] }
@@ -46,6 +63,7 @@ RSpec.describe 'api/v1/evaluations', type: :request do
               effectiveness_max_scores_attributes: attributes_for_list(:effectiveness_max_score, 5),
               effectiveness_desired_scores_attributes: attributes_for_list(:effectiveness_desired_score, 5),
               effectiveness_weight_scores_attributes: attributes_for_list(:effectiveness_weight_score, 5),
+              effectiveness_desired_term_scores_attributes: attributes_for_list(:effectiveness_desired_term_score, 5),
               risk_financial_scores_attributes: attributes_for_list(:risk_financial_score, 5),
               risk_investment_scores_attributes: attributes_for_list(:risk_investment_score, 5),
               risk_operational_scores_attributes: attributes_for_list(:risk_operational_score, 9),
@@ -79,7 +97,7 @@ RSpec.describe 'api/v1/evaluations', type: :request do
       parameter name: :id, in: :path, type: :string, description: 'Evaluation ID'
 
       response(200, 'successful') do
-        schema '$ref' => '#/components/schemas/Evaluation'
+        schema '$ref' => '#/components/schemas/EvaluationResponse'
 
         let(:user) { create(:user) }
         let!(:evaluation) { create(:evaluation, user:) }
