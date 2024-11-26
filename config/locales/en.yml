@@ -1,6 +1,57 @@
 en:
   uk: "UA"
   en: "EN"
+  evaluation_results:
+    title: "Evaluation Results"
+    effectiveness:
+      title: "Effectiveness"
+      membership_actual_desired: "Membership (actual/desired)"
+      membership_actual: "Membership Actual"
+      membership_desired: "Membership Desired"
+      membership_u: "Membership (U)"
+      membership_u_values: "Membership U Values"
+      max_membership: "Maximum Membership"
+      max_membership_value: "Maximum Membership Value"
+      aggregated_evaluation: "Aggregated Evaluation"
+      linguistic_evaluation: "Linguistic Evaluation"
+    risk:
+      title: "Risk"
+      term: "Term"
+      linguistic_value: "Linguistic Value"
+      resulting_term_estimate: "Resulting Term Estimate"
+      authenticity: "Authenticity"
+      aggregated_reliability: "Aggregated Reliability"
+      x: "X"
+      z: "Z"
+      x_value: "x%{idx} = %{value}"
+      z_value: "z%{idx} = %{value}"
+      k_term: "K%{index}"
+      k_subterm: "K%{index}"
+      aggregated_membership: "Aggregated Membership"
+      linguistic_evaluation: "Linguistic Evaluation"
+    team:
+      title: "Team"
+      term: "Term"
+      membership: "Membership"
+      k_term: "K%{index}"
+      k_subterm: "K%{index}"
+      defuzzification: "Defuzzification"
+      rate: "Rate"
+    financing_feasibility:
+      title: "Financing Feasibility"
+      cone_shaped_membership: "Cone Shaped Membership"
+      membership: "Membership"
+      triangle_membership: "Triangle Membership"
+    group: "Group"
+    generated_on: "Generated on"
+    linguistics:
+      very_low: "Very Low"
+      low: "Low"
+      middle: "Middle"
+      above_middle: "Above Middle"
+      below_middle: "Below Middle"
+      high: "High"
+
   api:
     users:
       registrations:

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Evaluation Results</title>
+  <title><%= t('evaluation_results.title') %></title>
   <style>
       body {
           font-family: Arial, sans-serif;
@@ -90,18 +90,17 @@
 </head>
 <body>
 <div class="container">
-  <h1>Evaluation Results</h1>
+  <h1><%= t('evaluation_results.title') %></h1>
 
-  <!-- Effectiveness Section -->
   <div class="section">
-    <h2>Effectiveness</h2>
+    <h2><%= t('evaluation_results.effectiveness.title') %></h2>
     <table>
-      <caption><strong>Membership (actual/desired)</strong></caption>
+      <caption><strong><%= t('evaluation_results.effectiveness.membership_actual_desired') %></strong></caption>
       <thead>
       <tr>
-        <th>Group</th>
-        <th>Membership Actual</th>
-        <th>Membership Desired</th>
+        <th><%= t('evaluation_results.group') %></th>
+        <th><%= t('evaluation_results.effectiveness.membership_actual') %></th>
+        <th><%= t('evaluation_results.effectiveness.membership_desired') %></th>
       </tr>
       </thead>
       <tbody>
@@ -116,11 +115,11 @@
     </table>
 
     <table>
-      <caption><strong>Membership (U)</strong></caption>
+      <caption><strong><%= t('evaluation_results.effectiveness.membership_u') %></strong></caption>
       <thead>
       <tr>
-        <th>Group</th>
-        <th>Membership U</th>
+        <th><%= t('evaluation_results.group') %></th>
+        <th><%= t('evaluation_results.effectiveness.membership_u_values') %></th>
       </tr>
       </thead>
       <tbody>
@@ -134,11 +133,11 @@
     </table>
 
     <table>
-      <caption><strong>Maximum Membership</strong></caption>
+      <caption><strong><%= t('evaluation_results.effectiveness.max_membership') %></strong></caption>
       <thead>
       <tr>
-        <th>Group</th>
-        <th>Maximum Membership</th>
+        <th><%= t('evaluation_results.group') %></th>
+        <th><%= t('evaluation_results.effectiveness.max_membership_value') %></th>
       </tr>
       </thead>
       <tbody>
@@ -153,23 +152,25 @@
 
     <div class="row">
       <div class="col col-6 mx-auto text-center">
-        <h5>Aggregated Evaluation</h5>
+        <h5><%= t('evaluation_results.effectiveness.aggregated_evaluation') %></h5>
         <b><%= effectiveness[:aggregated_score].round(2) %></b>
       </div>
       <div class="col col-6 mx-auto text-center">
-        <h5>Linguistic Evaluation</h5>
-        <b><%= effectiveness[:linguistic] %></b>
+        <h5><%= t('evaluation_results.effectiveness.linguistic_evaluation') %></h5>
+        <b><%= t("evaluation_results.linguistics.#{effectiveness[:linguistic]}") %></b>
       </div>
     </div>
   </div>
   <div class="section">
-    <h2>Risk</h2>
+    <h2><%= t('evaluation_results.risk.title') %></h2>
+
+    <!-- Risk: Resulting Term Estimate -->
     <table>
       <thead>
       <tr>
-        <th class="text-center">Term</th>
-        <th class="text-center">Linguistic value</th>
-        <th class="text-center filter-false sorter-false">The resulting term estimate</th>
+        <th class="text-center"><%= t('evaluation_results.risk.term') %></th>
+        <th class="text-center"><%= t('evaluation_results.risk.linguistic_value') %></th>
+        <th class="text-center"><%= t('evaluation_results.risk.resulting_term_estimate') %></th>
       </tr>
       </thead>
       <tbody>
@@ -177,141 +178,148 @@
         <% k, aggregated_assessment = v[:k], v[:aggregated_assessment] %>
 
         <tr>
-          <td colspan="3">K<%= index %></td>
+          <td colspan="3"><%= t('evaluation_results.risk.k_term', index: index) %></td>
         </tr>
 
         <% k.each.with_index do | value, idx | %>
           <tr>
             <% linguistic, _ = value %>
-
-            <td> K<%= "#{index}#{idx + 1}" %> </td>
-            <td> <%= linguistic %> </td>
+            <td><%= t('evaluation_results.risk.k_subterm', index: "#{index}#{idx + 1}") %></td>
+            <td><%= t("evaluation_results.linguistics.#{linguistic}") %></td>
             <% if idx == 0 %>
-              <td rowspan="<%= k.linguistic.size %>"><%= aggregated_assessment %></td>
+              <td rowspan="<%= k.linguistic.size %>"><%= t("evaluation_results.linguistics.#{aggregated_assessment}") %></td>
             <% end %>
           </tr>
         <% end %>
       <% end %>
-
       </tbody>
     </table>
+
+    <!-- Risk: Aggregated Reliability Assessment -->
     <table>
       <thead>
       <tr>
-        <th class="text-center">Term</th>
-        <th class="text-center">Linguistic</th>
-        <th class="text-center">Linguistic</th>
-        <th class="text-center">Aggregated Reliability</th>
+        <th class="text-center"><%= t('evaluation_results.risk.term') %></th>
+        <th class="text-center"><%= t('evaluation_results.risk.linguistic_value') %></th>
+        <th class="text-center"><%= t('evaluation_results.risk.authenticity') %></th>
+        <th class="text-center"><%= t('evaluation_results.risk.aggregated_reliability') %></th>
       </tr>
       </thead>
       <tbody>
       <% risk[:aggregated_reliability_assessment].each.with_index do | v, index | %>
-        <% k, aggr_reliability_assessment = v[:k], v[:aggregate_reliability_assessment] %>
+        <% k, aggregated_reliability = v[:k], v[:aggregate_reliability_assessment] %>
 
         <tr>
-          <td colspan="3">K<%= index %></td>
-          <td><%= k.aggregated_assessment %></td>
+          <td colspan="3"><%= t('evaluation_results.risk.k_term', index: index) %></td>
+          <td><%= aggregated_reliability.round(2) %></td>
         </tr>
 
         <% k.each.with_index do | value, idx | %>
           <tr>
             <% linguistic, authenticity = value %>
-
-            <td> K<%= "#{index}#{idx + 1}" %> </td>
-            <td> <%= linguistic %> </td>
-            <td> <%= authenticity %> </td>
+            <td><%= t('evaluation_results.risk.k_subterm', index: "#{index}#{idx + 1}") %></td>
+            <td><%= t("evaluation_results.linguistics.#{linguistic}") %></td>
+            <td><%= authenticity %></td>
             <% if idx == 0 %>
-              <td rowspan="<%= k.linguistic.size %>"><%= aggr_reliability_assessment.round(2) %></td>
+              <td rowspan="<%= k.linguistic.size %>"><%= aggregated_reliability.round(2) %></td>
             <% end %>
           </tr>
         <% end %>
       <% end %>
-
       </tbody>
     </table>
+
+    <!-- Risk: Estimated Membership -->
     <table>
       <thead>
       <tr>
-        <th class="text-center">X</th>
-        <th class="text-center">Z</th>
+        <th class="text-center"><%= t('evaluation_results.risk.x') %></th>
+        <th class="text-center"><%= t('evaluation_results.risk.z') %></th>
       </tr>
       </thead>
       <tbody>
       <% risk[:estimated_membership].each.with_index do | value, idx | %>
+        <% x, z = value.first %>
         <tr>
-          <% x, z = value.first %>
-          <td><%= "x#{idx} = #{x.round(2)}" %></td>
-          <td><%= "z#{idx} = #{z.round(2)}" %></td>
+          <td><%= t('evaluation_results.risk.x_value', idx: idx, value: x.round(2)) %></td>
+          <td><%= t('evaluation_results.risk.z_value', idx: idx, value: z.round(2)) %></td>
+        </tr>
       <% end %>
       </tbody>
     </table>
-    <div>
-      <div class="col-6 mx-auto text-center">
-        <h5>Aggregated membership</h5>
+
+    <!-- Aggregated Membership & Linguistic Evaluation -->
+    <div class="row">
+      <div class="col col-6 mx-auto text-center">
+        <h5><%= t('evaluation_results.risk.aggregated_membership') %></h5>
         <b><%= risk[:aggregated_membership].round(2) %></b>
       </div>
-      <div class="col-6 mx-auto text-center">
-        <h5>Linguistic evaluation</h5>
+      <div class="col col-6 mx-auto text-center">
+        <h5><%= t('evaluation_results.risk.linguistic_evaluation') %></h5>
         <b><%= risk[:security_level] %></b>
       </div>
     </div>
   </div>
   <div class="section">
-    <h2>Team</h2>
+    <h2><%= t('evaluation_results.team.title') %></h2>
+
+    <!-- Team: Membership -->
     <table>
       <thead>
       <tr>
-        <th class="text-center">Term</th>
-        <th class="text-center">Membership</th>
+        <th class="text-center"><%= t('evaluation_results.team.term') %></th>
+        <th class="text-center"><%= t('evaluation_results.team.membership') %></th>
       </tr>
       </thead>
       <tbody>
       <% team[:membership].each.with_index do | k, index | %>
         <tr>
-          <td colspan="2">
-            K<%= index + 1 %>
-          </td>
+          <td colspan="2"><%= t('evaluation_results.team.k_term', index: index + 1) %></td>
         </tr>
         <% k.each.with_index do | value, idx | %>
           <tr>
-            <td>K<%= index + 1 %><%= idx + 1 %></td>
+            <td><%= t('evaluation_results.team.k_subterm', index: "#{index + 1}#{idx + 1}") %></td>
             <td><%= value.round(2) %></td>
           </tr>
         <% end %>
       <% end %>
       </tbody>
     </table>
-    <div>
-      <div class="col-6 mx-auto text-center">
-        <h5>Defuzzification</h5>
+
+    <!-- Team: Defuzzification and Rate -->
+    <div class="row">
+      <div class="col col-6 mx-auto text-center">
+        <h5><%= t('evaluation_results.team.defuzzification') %></h5>
         <b><%= team[:defuzzification].round(2) %></b>
       </div>
-      <div class="col-6 mx-auto text-center">
-        <h5>Rate</h5>
+      <div class="col col-6 mx-auto text-center">
+        <h5><%= t('evaluation_results.team.rate') %></h5>
         <b><%= team[:rate] %></b>
       </div>
     </div>
   </div>
   <div class="section">
-    <h2>Financing Feasibility</h2>
-    <div>
-      <div class="col-4 mx-auto text-center">
-        <h5>Cone Shaped Membership</h5>
+    <h2><%= t('evaluation_results.financing_feasibility.title') %></h2>
+
+    <!-- Financing Feasibility -->
+    <div class="row">
+      <div class="col col-4 mx-auto text-center">
+        <h5><%= t('evaluation_results.financing_feasibility.cone_shaped_membership') %></h5>
         <b><%= financing_feasibility[:cone_shaped_membership].round(4) %></b>
       </div>
-      <div class="col-4 mx-auto text-center">
-        <h5>Membership</h5>
+      <div class="col col-4 mx-auto text-center">
+        <h5><%= t('evaluation_results.financing_feasibility.membership') %></h5>
         <b><%= financing_feasibility[:membership].round(4) %></b>
       </div>
-      <div class="col-4 mx-auto text-center">
-        <h5>Triangle Membership</h5>
+      <div class="col col-4 mx-auto text-center">
+        <h5><%= t('evaluation_results.financing_feasibility.triangle_membership') %></h5>
         <b><%= financing_feasibility[:triangle_membership].round(4) %></b>
       </div>
     </div>
   </div>
 
   <div class="footer">
-    Generated on <%= Time.now.strftime('%d %b %Y %H:%M:%S') %>
+    <%= t('evaluation_results.generated_on') %>: <%= Time.now.strftime('%d %b %Y %H:%M:%S') %>
   </div>
 </div>
 </body>
