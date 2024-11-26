@@ -1,6 +1,7 @@
 module Api
   module V1
     class EvaluationsController < ApplicationController
+      include ActionController::MimeResponds
       before_action :authenticate_user!
 
       def index # rubocop:disable Metrics/AbcSize
@@ -22,7 +23,7 @@ module Api
       end
 
       def show
-        evaluation = Evaluation.find(params[:id])
+        evaluation = current_user.evaluations.find(params[:id])
 
         effectiveness = evaluation.evaluate_effectiveness
         risk = evaluation.evaluate_risk
@@ -53,6 +54,26 @@ module Api
           team:,
           financing_feasibility:
         }
+      end
+
+      def result_pdf
+        @evaluation = current_user.evaluations.find(params[:id])
+
+        @effectiveness = @evaluation.evaluate_effectiveness
+        @risk = @evaluation.evaluate_risk
+        @team = @evaluation.evaluate_team
+        @financing_feasibility = @evaluation.evaluate_financing_feasibility(
+          @effectiveness[:aggregated_score],
+          @risk[:aggregated_membership],
+          @team[:defuzzification]
+        )
+
+        pdf_html = ActionController::Base.new.render_to_string(template: 'api/v1/evaluations/result_pdf',
+                                                               locals: { effectiveness: @effectiveness,
+                                                                         risk: @risk, team: @team,
+                                                                         financing_feasibility: @financing_feasibility })
+        pdf = WickedPdf.new.pdf_from_string(pdf_html)
+        send_data pdf, filename: 'file.pdf'
       end
 
       private

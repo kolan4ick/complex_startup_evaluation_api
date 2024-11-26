@@ -11,6 +11,9 @@ gem 'dotenv-rails'
 
 gem 'kaminari'
 
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 # Use Redis adapter to run Action Cable in production

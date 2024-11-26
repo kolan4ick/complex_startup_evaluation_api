@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Evaluation Results</title>
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+          font-size: 12px;
+          line-height: 1.6;
+          color: #333;
+          margin: 0;
+          padding: 20px;
+          background-color: #f9f9f9;
+      }
+
+      .container {
+          width: 95%;
+          margin: 0 auto;
+          padding: 20px;
+          background: #fff;
+          border-radius: 8px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1, h2, h3 {
+          text-align: center;
+          margin: 20px 0;
+          color: #444;
+      }
+
+      table {
+          width: 100%;
+          border-collapse: collapse;
+          margin: 20px 0;
+      }
+
+      th, td {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: center;
+      }
+
+      th {
+          background-color: #f4f4f4;
+          font-weight: bold;
+      }
+
+      .section {
+          margin-bottom: 30px;
+      }
+
+      .highlight {
+          font-weight: bold;
+          color: #222;
+      }
+
+      .footer {
+          text-align: center;
+          font-size: 10px;
+          color: #999;
+          margin-top: 40px;
+      }
+
+      .row {
+          display: flex;
+          flex-wrap: wrap;
+          margin: 0 -15px;
+      }
+
+      .col {
+          padding: 0 15px;
+          flex: 1;
+      }
+
+      .col-6 {
+          flex: 0 0 50%;
+          max-width: 50%;
+      }
+
+      .mx-auto {
+          margin-left: auto;
+          margin-right: auto;
+      }
+
+      .text-center {
+          text-align: center;
+      }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Evaluation Results</h1>
+
+  <!-- Effectiveness Section -->
+  <div class="section">
+    <h2>Effectiveness</h2>
+    <table>
+      <caption><strong>Membership (actual/desired)</strong></caption>
+      <thead>
+      <tr>
+        <th>Group</th>
+        <th>Membership Actual</th>
+        <th>Membership Desired</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% effectiveness[:membership_actual].each_with_index do | value, i | %>
+        <tr>
+          <td>G<%= i + 1 %></td>
+          <td><%= value.round(4) %></td>
+          <td><%= effectiveness[:membership_desired][i].round(4) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+    <table>
+      <caption><strong>Membership (U)</strong></caption>
+      <thead>
+      <tr>
+        <th>Group</th>
+        <th>Membership U</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% effectiveness[:membership_u].each_with_index do | value, i | %>
+        <tr>
+          <td>G<%= i + 1 %></td>
+          <td><%= value.map { | position, v | "U#{i + 1}#{position} - #{v.round(2)}" }.join(" або ") %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+    <table>
+      <caption><strong>Maximum Membership</strong></caption>
+      <thead>
+      <tr>
+        <th>Group</th>
+        <th>Maximum Membership</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% effectiveness[:max_membership].each_with_index do | value, i | %>
+        <tr>
+          <td>G<%= i + 1 %></td>
+          <td><%= value.round(2) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+    <div class="row">
+      <div class="col col-6 mx-auto text-center">
+        <h5>Aggregated Evaluation</h5>
+        <b><%= effectiveness[:aggregated_score].round(2) %></b>
+      </div>
+      <div class="col col-6 mx-auto text-center">
+        <h5>Linguistic Evaluation</h5>
+        <b><%= effectiveness[:linguistic] %></b>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>Risk</h2>
+    <table>
+      <thead>
+      <tr>
+        <th class="text-center">Term</th>
+        <th class="text-center">Linguistic value</th>
+        <th class="text-center filter-false sorter-false">The resulting term estimate</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% risk[:res_term_estimate].each.with_index do | v, index | %>
+        <% k, aggregated_assessment = v[:k], v[:aggregated_assessment] %>
+
+        <tr>
+          <td colspan="3">K<%= index %></td>
+        </tr>
+
+        <% k.each.with_index do | value, idx | %>
+          <tr>
+            <% linguistic, _ = value %>
+
+            <td> K<%= "#{index}#{idx + 1}" %> </td>
+            <td> <%= linguistic %> </td>
+            <% if idx == 0 %>
+              <td rowspan="<%= k.linguistic.size %>"><%= aggregated_assessment %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+
+      </tbody>
+    </table>
+    <table>
+      <thead>
+      <tr>
+        <th class="text-center">Term</th>
+        <th class="text-center">Linguistic</th>
+        <th class="text-center">Linguistic</th>
+        <th class="text-center">Aggregated Reliability</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% risk[:aggregated_reliability_assessment].each.with_index do | v, index | %>
+        <% k, aggr_reliability_assessment = v[:k], v[:aggregate_reliability_assessment] %>
+
+        <tr>
+          <td colspan="3">K<%= index %></td>
+          <td><%= k.aggregated_assessment %></td>
+        </tr>
+
+        <% k.each.with_index do | value, idx | %>
+          <tr>
+            <% linguistic, authenticity = value %>
+
+            <td> K<%= "#{index}#{idx + 1}" %> </td>
+            <td> <%= linguistic %> </td>
+            <td> <%= authenticity %> </td>
+            <% if idx == 0 %>
+              <td rowspan="<%= k.linguistic.size %>"><%= aggr_reliability_assessment.round(2) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+
+      </tbody>
+    </table>
+    <table>
+      <thead>
+      <tr>
+        <th class="text-center">X</th>
+        <th class="text-center">Z</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% risk[:estimated_membership].each.with_index do | value, idx | %>
+        <tr>
+          <% x, z = value.first %>
+          <td><%= "x#{idx} = #{x.round(2)}" %></td>
+          <td><%= "z#{idx} = #{z.round(2)}" %></td>
+      <% end %>
+      </tbody>
+    </table>
+    <div>
+      <div class="col-6 mx-auto text-center">
+        <h5>Aggregated membership</h5>
+        <b><%= risk[:aggregated_membership].round(2) %></b>
+      </div>
+      <div class="col-6 mx-auto text-center">
+        <h5>Linguistic evaluation</h5>
+        <b><%= risk[:security_level] %></b>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>Team</h2>
+    <table>
+      <thead>
+      <tr>
+        <th class="text-center">Term</th>
+        <th class="text-center">Membership</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% team[:membership].each.with_index do | k, index | %>
+        <tr>
+          <td colspan="2">
+            K<%= index + 1 %>
+          </td>
+        </tr>
+        <% k.each.with_index do | value, idx | %>
+          <tr>
+            <td>K<%= index + 1 %><%= idx + 1 %></td>
+            <td><%= value.round(2) %></td>
+          </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
+    <div>
+      <div class="col-6 mx-auto text-center">
+        <h5>Defuzzification</h5>
+        <b><%= team[:defuzzification].round(2) %></b>
+      </div>
+      <div class="col-6 mx-auto text-center">
+        <h5>Rate</h5>
+        <b><%= team[:rate] %></b>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>Financing Feasibility</h2>
+    <div>
+      <div class="col-4 mx-auto text-center">
+        <h5>Cone Shaped Membership</h5>
+        <b><%= financing_feasibility[:cone_shaped_membership].round(4) %></b>
+      </div>
+      <div class="col-4 mx-auto text-center">
+        <h5>Membership</h5>
+        <b><%= financing_feasibility[:membership].round(4) %></b>
+      </div>
+      <div class="col-4 mx-auto text-center">
+        <h5>Triangle Membership</h5>
+        <b><%= financing_feasibility[:triangle_membership].round(4) %></b>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Generated on <%= Time.now.strftime('%d %b %Y %H:%M:%S') %>
+  </div>
+</div>
+</body>
+</html>
