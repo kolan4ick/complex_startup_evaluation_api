@@ -44,6 +44,8 @@ uk:
       triangle_membership: "Трикутна належність"
       triangle_membership_value: "Значення функції трикутної належності"
       triangle_membership_linguistic: "Лінгвістичне значення трикутної функції належності"
+      triangle_memberships: "Трикутна належність"
+      memberships: "Належності"
     linguistics:
       very_low: "Дуже низька"
       low: "Низька"

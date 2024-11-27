@@ -44,6 +44,8 @@ en:
       triangle_membership: "Triangle Membership"
       triangle_membership_value: "Triangle membership value"
       triangle_membership_linguistic: "Triangle membership linguistic value"
+      triangle_memberships: "Triangle membership"
+      memberships: "Memberships"
     group: "Group"
     generated_on: "Generated on"
     linguistics:
