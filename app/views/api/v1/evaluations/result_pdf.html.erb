@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= t('evaluation_results.title') %></title>
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+          font-size: 12px;
+          line-height: 1.6;
+          color: #333;
+          margin: 0;
+          padding: 20px;
+      }
+
+      .container {
+          width: 95%;
+          margin: 0 auto;
+          padding: 20px;
+      }
+
+      h1, h2, h3 {
+          text-align: center;
+          margin: 20px 0;
+          color: #444;
+      }
+
+      table {
+          width: 100%;
+          border-collapse: collapse;
+          margin: 20px 0;
+      }
+
+      th, td {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: center;
+      }
+
+      th {
+          background-color: #f4f4f4;
+          font-weight: bold;
+      }
+
+      .section {
+          margin-bottom: 30px;
+      }
+
+      .footer {
+          text-align: center;
+          font-size: 10px;
+          color: #999;
+          margin-top: 40px;
+      }
+
+      .row {
+          display: flex;
+          flex-wrap: wrap;
+          margin: 0 -15px;
+      }
+
+      .col {
+          padding: 0 15px;
+          flex: 1;
+      }
+
+      .col-6 {
+          flex: 0 0 50%;
+          max-width: 50%;
+      }
+
+      .mx-auto {
+          margin-left: auto;
+          margin-right: auto;
+      }
+
+      .text-center {
+          text-align: center;
+      }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1><%= t('evaluation_results.title') %></h1>
+
+  <div class="section">
+    <h2><%= t('evaluation_results.effectiveness.title') %></h2>
+    <table>
+      <caption><strong><%= t('evaluation_results.effectiveness.membership_actual_desired') %></strong></caption>
+      <thead>
+      <tr>
+        <th><%= t('evaluation_results.group') %></th>
+        <th><%= t('evaluation_results.effectiveness.membership_actual') %></th>
+        <th><%= t('evaluation_results.effectiveness.membership_desired') %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% effectiveness[:membership_actual].each_with_index do | value, i | %>
+        <tr>
+          <td>G<%= i + 1 %></td>
+          <td><%= value.round(4) %></td>
+          <td><%= effectiveness[:membership_desired][i].round(4) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+    <table>
+      <caption><strong><%= t('evaluation_results.effectiveness.membership_u') %></strong></caption>
+      <thead>
+      <tr>
+        <th><%= t('evaluation_results.group') %></th>
+        <th><%= t('evaluation_results.effectiveness.membership_u_values') %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% effectiveness[:membership_u].each_with_index do | value, i | %>
+        <tr>
+          <td>G<%= i + 1 %></td>
+          <td><%= value.map { | position, v | "U#{i + 1}#{position} - #{v.round(2)}" }.join(" або ") %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+    <table>
+      <caption><strong><%= t('evaluation_results.effectiveness.max_membership') %></strong></caption>
+      <thead>
+      <tr>
+        <th><%= t('evaluation_results.group') %></th>
+        <th><%= t('evaluation_results.effectiveness.max_membership_value') %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% effectiveness[:max_membership].each_with_index do | value, i | %>
+        <tr>
+          <td>G<%= i + 1 %></td>
+          <td><%= value.round(2) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+    <div class="row">
+      <div class="col col-6 mx-auto text-center">
+        <h5><%= t('evaluation_results.effectiveness.aggregated_evaluation') %></h5>
+        <b><%= effectiveness[:aggregated_score].round(2) %></b>
+      </div>
+      <div class="col col-6 mx-auto text-center">
+        <h5><%= t('evaluation_results.effectiveness.linguistic_evaluation') %></h5>
+        <b><%= t("evaluation_results.linguistics.#{effectiveness[:linguistic]}") %></b>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <h2><%= t('evaluation_results.risk.title') %></h2>
+
+    <table>
+      <thead>
+      <tr>
+        <th class="text-center"><%= t('evaluation_results.risk.term') %></th>
+        <th class="text-center"><%= t('evaluation_results.risk.linguistic_value') %></th>
+        <th class="text-center"><%= t('evaluation_results.risk.resulting_term_estimate') %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% risk[:res_term_estimate].each.with_index do | v, index | %>
+        <% k, aggregated_assessment = v[:k], v[:aggregated_assessment] %>
+
+        <tr>
+          <td colspan="3"><%= t('evaluation_results.risk.k_term', index: index) %></td>
+        </tr>
+
+        <% k.each.with_index do | value, idx | %>
+          <tr>
+            <% linguistic, _ = value %>
+            <td><%= t('evaluation_results.risk.k_subterm', index: "#{index}#{idx + 1}") %></td>
+            <td><%= t("evaluation_results.linguistics.#{linguistic}") %></td>
+            <% if idx == 0 %>
+              <td rowspan="<%= k.linguistic.size %>"><%= t("evaluation_results.linguistics.#{aggregated_assessment}") %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
+
+    <table>
+      <thead>
+      <tr>
+        <th class="text-center"><%= t('evaluation_results.risk.term') %></th>
+        <th class="text-center"><%= t('evaluation_results.risk.linguistic_value') %></th>
+        <th class="text-center"><%= t('evaluation_results.risk.authenticity') %></th>
+        <th class="text-center"><%= t('evaluation_results.risk.aggregated_reliability') %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% risk[:aggregated_reliability_assessment].each.with_index do | v, index | %>
+        <% k, aggregated_reliability = v[:k], v[:aggregate_reliability_assessment] %>
+
+        <tr>
+          <td colspan="3"><%= t('evaluation_results.risk.k_term', index: index) %></td>
+          <td><%= aggregated_reliability.round(2) %></td>
+        </tr>
+
+        <% k.each.with_index do | value, idx | %>
+          <tr>
+            <% linguistic, authenticity = value %>
+            <td><%= t('evaluation_results.risk.k_subterm', index: "#{index}#{idx + 1}") %></td>
+            <td><%= t("evaluation_results.linguistics.#{linguistic}") %></td>
+            <td><%= authenticity %></td>
+            <% if idx == 0 %>
+              <td rowspan="<%= k.linguistic.size %>"><%= aggregated_reliability.round(2) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
+
+    <table>
+      <thead>
+      <tr>
+        <th class="text-center"><%= t('evaluation_results.risk.x') %></th>
+        <th class="text-center"><%= t('evaluation_results.risk.z') %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% risk[:estimated_membership].each.with_index do | value, idx | %>
+        <% x, z = value.first %>
+        <tr>
+          <td><%= t('evaluation_results.risk.x_value', idx: idx, value: x.round(2)) %></td>
+          <td><%= t('evaluation_results.risk.z_value', idx: idx, value: z.round(2)) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+    <div class="row">
+      <div class="col col-6 mx-auto text-center">
+        <h5><%= t('evaluation_results.risk.aggregated_membership') %></h5>
+        <b><%= risk[:aggregated_membership].round(2) %></b>
+      </div>
+      <div class="col col-6 mx-auto text-center">
+        <h5><%= t('evaluation_results.risk.linguistic_evaluation') %></h5>
+        <b><%= risk[:security_level] %></b>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <h2><%= t('evaluation_results.team.title') %></h2>
+    <table>
+      <thead>
+      <tr>
+        <th class="text-center"><%= t('evaluation_results.team.term') %></th>
+        <th class="text-center"><%= t('evaluation_results.team.membership') %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% team[:membership].each.with_index do | k, index | %>
+        <tr>
+          <td colspan="2"><%= t('evaluation_results.team.k_term', index: index + 1) %></td>
+        </tr>
+        <% k.each.with_index do | value, idx | %>
+          <tr>
+            <td><%= t('evaluation_results.team.k_subterm', index: "#{index + 1}#{idx + 1}") %></td>
+            <td><%= value.round(2) %></td>
+          </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="col col-6 mx-auto text-center">
+        <h5><%= t('evaluation_results.team.defuzzification') %></h5>
+        <b><%= team[:defuzzification].round(2) %></b>
+      </div>
+      <div class="col col-6 mx-auto text-center">
+        <h5><%= t('evaluation_results.team.rate') %></h5>
+        <b><%= team[:rate] %></b>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <h2><%= t('evaluation_results.financing_feasibility.title') %></h2>
+
+    <table>
+      <caption><strong><%= t('evaluation_results.financing_feasibility.memberships') %></strong></caption>
+      <thead>
+      <tr>
+        <th><%= t('evaluation_results.financing_feasibility.cone_shaped_membership') %></th>
+        <th><%= t('evaluation_results.financing_feasibility.membership') %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><b><%= financing_feasibility[:cone_shaped_membership].round(4) %></b></td>
+        <td><b><%= financing_feasibility[:membership].round(4) %></b></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <table>
+      <caption><strong><%= t('evaluation_results.financing_feasibility.triangle_memberships') %></strong></caption>
+      <thead>
+      <tr>
+        <th><%= t('evaluation_results.financing_feasibility.triangle_membership') %></th>
+        <th><%= t('evaluation_results.financing_feasibility.triangle_membership_value') %></th>
+        <th><%= t('evaluation_results.financing_feasibility.triangle_membership_linguistic') %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% financing_feasibility[:triangle_membership].each_with_index do |triangle, index| %>
+        <tr>
+          <td>
+            <% if financing_feasibility[:triangle_membership].length > 1 %>
+              <%= t("evaluation_results.financing_feasibility.triangle_memberships.#{index + 1}") %>
+            <% else %>
+              <%= t('evaluation_results.financing_feasibility.triangle_membership') %>
+            <% end %>
+          </td>
+          <td><b><%= triangle[:value].round(4) %></b></td>
+          <td><b><%= triangle[:linguistic] %></b></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div class="footer">
+    <%= t('evaluation_results.generated_on') %> : <%= Time.now.strftime('%d.%m.%Y %H:%M') %>
+  </div>
+</div>
+</body>
+</html>

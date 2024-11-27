@@ -7,7 +7,9 @@ Rails.application.routes.draw do
       devise_for :users, controllers: { sessions: 'api/v1/users/sessions',
                                         registrations: 'api/v1/users/registrations' }, singular: 'user'
 
-      resources :evaluations, only: %i[index show create]
+      resources :evaluations, only: %i[index show create] do
+        get :result_pdf, on: :member
+      end
     end
   end
 end

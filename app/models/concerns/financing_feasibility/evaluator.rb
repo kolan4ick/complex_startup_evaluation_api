@@ -26,7 +26,7 @@ module FinancingFeasibility
     def calculate_cone_shaped_membership
       theta_evaluation = theta
 
-      theta_evaluation > 1.0 ? 1.0 - theta_evaluation : theta_evaluation
+      theta_evaluation < 1.0 ? 1.0 - theta_evaluation : 0
     end
 
     def calculate_membership(cone_shaped_membership)
@@ -44,13 +44,13 @@ module FinancingFeasibility
     end
 
     def calculate_triangle_membership(membership) # rubocop:disable Metrics
-      return 1 if membership <= left_boundary || membership >= right_boundary
+      return [{ value: 1, linguistic: linguistic_valuation(1) }] if membership <= left_boundary
+      return [{ value: 1, linguistic: linguistic_valuation(5) }] if membership >= right_boundary
       return calculate_membership_values(membership, 3, 2, 1) if in_range?(membership, left_boundary, middle_left)
       return calculate_membership_values(membership, 4, 3, 2) if in_range?(membership, middle_left, middle)
       return calculate_membership_values(membership, 5, 4, 3) if in_range?(membership, middle, middle_right)
-      return calculate_membership_values(membership, 6, 5, 4) if in_range?(membership, middle_right, right_boundary)
 
-      1 if membership > right_boundary
+      calculate_membership_values(membership, 6, 5, 4) if in_range?(membership, middle_right, right_boundary)
     end
 
     def left_boundary
