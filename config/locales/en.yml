@@ -42,6 +42,8 @@ en:
       cone_shaped_membership: "Cone Shaped Membership"
       membership: "Membership"
       triangle_membership: "Triangle Membership"
+      triangle_membership_value: "Triangle membership value"
+      triangle_membership_linguistic: "Triangle membership linguistic value"
     group: "Group"
     generated_on: "Generated on"
     linguistics:

@@ -42,6 +42,8 @@ uk:
       cone_shaped_membership: "Конусоподібна належність"
       membership: "Належність"
       triangle_membership: "Трикутна належність"
+      triangle_membership_value: "Значення функції трикутної належності"
+      triangle_membership_linguistic: "Лінгвістичне значення трикутної функції належності"
     linguistics:
       very_low: "Дуже низька"
       low: "Низька"

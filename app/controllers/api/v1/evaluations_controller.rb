@@ -42,10 +42,11 @@ module Api
                                                                           team[:defuzzification])
 
         render json: {
-          effectiveness:,
-          risk:,
-          team:,
-          financing_feasibility:
+          evaluation: EvaluationSerializer.render_as_hash(evaluation),
+          effectiveness: effectiveness,
+          risk: risk,
+          team: team,
+          financing_feasibility: financing_feasibility
         }
       end
 
