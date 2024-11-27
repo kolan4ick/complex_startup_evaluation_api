@@ -3,6 +3,7 @@ module Api
     class EvaluationsController < ApplicationController
       include ActionController::MimeResponds
       before_action :authenticate_user!
+      before_action :set_evaluation_and_results, only: %i[show result_pdf]
 
       def index # rubocop:disable Metrics/AbcSize
         page = params[:page] || 1
@@ -23,17 +24,9 @@ module Api
       end
 
       def show
-        evaluation = current_user.evaluations.find(params[:id])
-
-        effectiveness = evaluation.evaluate_effectiveness
-        risk = evaluation.evaluate_risk
-        team = evaluation.evaluate_team
-        financing_feasibility = evaluation.evaluate_financing_feasibility(effectiveness[:aggregated_score],
-                                                                          risk[:aggregated_membership],
-                                                                          team[:defuzzification])
-
-        render json: { evaluation: EvaluationSerializer.render_as_hash(evaluation),
-                       result: { effectiveness:, risk:, team:, financing_feasibility: } }
+        render json: { evaluation: EvaluationSerializer.render_as_hash(@evaluation),
+                       result: { effectiveness: @effectiveness, risk: @risk, team: @team,
+                                 financing_feasibility: @financing_feasibility } }
       end
 
       def create
@@ -57,6 +50,17 @@ module Api
       end
 
       def result_pdf
+        pdf_html = ActionController::Base.new.render_to_string(template: 'api/v1/evaluations/result_pdf',
+                                                               locals: { effectiveness: @effectiveness,
+                                                                         risk: @risk, team: @team,
+                                                                         financing_feasibility: @financing_feasibility })
+        pdf = WickedPdf.new.pdf_from_string(pdf_html)
+        send_data pdf, filename: 'file.pdf'
+      end
+
+      private
+
+      def set_evaluation_and_results
         @evaluation = current_user.evaluations.find(params[:id])
 
         @effectiveness = @evaluation.evaluate_effectiveness
@@ -67,16 +71,7 @@ module Api
           @risk[:aggregated_membership],
           @team[:defuzzification]
         )
-
-        pdf_html = ActionController::Base.new.render_to_string(template: 'api/v1/evaluations/result_pdf',
-                                                               locals: { effectiveness: @effectiveness,
-                                                                         risk: @risk, team: @team,
-                                                                         financing_feasibility: @financing_feasibility })
-        pdf = WickedPdf.new.pdf_from_string(pdf_html)
-        send_data pdf, filename: 'file.pdf'
       end
-
-      private
 
       def evaluations_params
         params.require(:evaluation).permit(:team_competencies, :team_competencies_and_experience,
