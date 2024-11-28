@@ -18,6 +18,4 @@ test:
 
 production:
   <<: *default
-  database: <%= "#{ENV.fetch("DB_NAME")}_production" %>
-  username: <%= ENV.fetch("DB_USERNAME") %>
-  password: <%= ENV.fetch("DB_PASSWORD") %>
+  url: <%= ENV['DATABASE_URL'] %>
