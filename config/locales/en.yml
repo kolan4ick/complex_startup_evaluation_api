@@ -62,7 +62,7 @@ en:
         updated_successfully: "Updated successfully."
         signed_up_successfully: "Signed up successfully."
         creation_failed: "User couldn't be created successfully. %{errors}"
-        update_failed: "Update failed"
+        update_failed: "Update failed. %{errors}"
         generic_error: "Something went wrong. Please try again later."
       sessions:
         logged_in_successfully: "Logged in successfully."
@@ -306,6 +306,9 @@ en:
         feasibility_threshold: "Feasibility Threshold"
         created_at: "Created At"
         updated_at: "Updated At"
+      user/feasibility_levels:
+        linguistic: "Feasibility Linguistic"
+        value: "Feasibility Value"
       evaluation:
         feasibility_linguistic: "Linguistic Feasibility"
         team_competencies: "Team Competencies"

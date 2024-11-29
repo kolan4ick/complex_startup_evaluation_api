@@ -61,7 +61,7 @@ uk:
         updated_successfully: "Успішно оновлено."
         signed_up_successfully: "Успішно зареєстровано."
         creation_failed: "Не вдалося створити користувача. %{errors}"
-        update_failed: "Оновлення неуспішне"
+        update_failed: "Оновлення неуспішне. %{errors}"
         generic_error: "Виникла помилка"
       sessions:
         logged_in_successfully: "Успішний вхід."
@@ -304,6 +304,9 @@ uk:
           feasibility_threshold: "Поріг реалізації"
           created_at: "Створено"
           updated_at: "Оновлено"
+        user/feasibility_levels:
+            linguistic: "Лінгвістичний рівень реалізації"
+            value: "Значення рівня реалізації"
         evaluation:
           feasibility_linguistic: "Лінгвістична здійсненність"
           team_competencies: "Компетенції команди"
