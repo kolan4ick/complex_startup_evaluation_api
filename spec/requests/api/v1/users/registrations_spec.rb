@@ -55,7 +55,6 @@ RSpec.describe 'api/v1/users/registrations', type: :request do
             user: {
               email: 'user@example.com',
               name: 'User',
-              feasibility_threshold: 0.5,
               adjustment_delta: 0.1
             }
           }

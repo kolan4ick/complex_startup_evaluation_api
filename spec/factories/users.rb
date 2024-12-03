@@ -6,7 +6,6 @@
 #  adjustment_delta       :float            default(0.1), not null
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  feasibility_threshold  :float            default(0.1), not null
 #  jti                    :string           default(""), not null
 #  name                   :string
 #  remember_created_at    :datetime
@@ -26,7 +25,6 @@ FactoryBot.define do
   factory :user do
     name { 'Test name' }
     sequence(:email) { |n| "name#{n}@example.com" }
-    feasibility_threshold { 0.6 }
     adjustment_delta { 0.2 }
     password { 'topsecret' }
     password_confirmation { password }
