@@ -68,6 +68,7 @@ en:
         logged_in_successfully: "Logged in successfully."
         logged_out_successfully: "Logged out successfully."
         no_active_session: "Couldn't find an active session."
+        invalid_credentials: "Invalid credentials."
     evaluator:
       effectiveness:
         very_low: "The idea evaluation is very low"

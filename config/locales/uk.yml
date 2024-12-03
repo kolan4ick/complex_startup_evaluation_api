@@ -67,6 +67,7 @@ uk:
         logged_in_successfully: "Успішний вхід."
         logged_out_successfully: "Успішний вихід."
         no_active_session: "Не вдалося знайти активну сесію."
+        invalid_credentials: "Неправильні дані."
     evaluator:
       effectiveness:
         very_low: "Оцінка ідеї дуже низька"

@@ -37,7 +37,8 @@ module Risk
           return level if @linguistic.count(level).to_f / @linguistic.size >= 0.6
         end
 
-        I18n.t('api.evaluator.risk.no_matching_risk_level')
+        # Return level with the highest count
+        @linguistic.max_by { |level| @linguistic.count(level) } || I18n.t('api.evaluator.risk.no_matching_risk_level')
       end
 
       # Aggregate reliability assessment
