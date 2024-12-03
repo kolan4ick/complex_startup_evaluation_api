@@ -6,7 +6,6 @@
 #  adjustment_delta       :float            default(0.1), not null
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  feasibility_threshold  :float            default(0.1), not null
 #  jti                    :string           default(""), not null
 #  name                   :string
 #  remember_created_at    :datetime
@@ -30,9 +29,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'validations' do
-    it { should validate_presence_of(:feasibility_threshold) }
     it { should validate_presence_of(:adjustment_delta) }
-    it { should validate_numericality_of(:feasibility_threshold).is_greater_than(0).is_less_than_or_equal_to(1) }
     it { should validate_numericality_of(:adjustment_delta).is_greater_than(0).is_less_than_or_equal_to(1) }
   end
 end

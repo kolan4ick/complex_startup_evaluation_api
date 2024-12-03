@@ -8,7 +8,6 @@
 #  adjustment_delta       :float            default(0.1), not null
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  feasibility_threshold  :float            default(0.1), not null
 #  jti                    :string           default(""), not null
 #  name                   :string
 #  remember_created_at    :datetime
@@ -38,8 +37,7 @@ class User < ApplicationRecord
 
   after_create :create_feasibility_levels
 
-  validates :feasibility_threshold, :adjustment_delta, presence: true,
-                                                       numericality: { greater_than: 0, less_than_or_equal_to: 1 }
+  validates :adjustment_delta, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 1 }
   before_update :create_or_validate_feasibility_levels
 
   private
