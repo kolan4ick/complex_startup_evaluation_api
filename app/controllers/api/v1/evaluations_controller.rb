@@ -4,6 +4,8 @@ module Api
       include ActionController::MimeResponds
       before_action :authenticate_user!
       before_action :set_evaluation_and_results, only: %i[show result_pdf]
+      rate_limit to: 10, within: 1.minute, only: :create, by: -> { request.remote_ip }
+      rate_limit to: 3, within: 1.minute, only: :result_pdf, by: -> { request.remote_ip }
 
       def index # rubocop:disable Metrics/AbcSize
         page = params[:page] || 1
