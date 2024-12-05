@@ -325,6 +325,18 @@ RSpec.configure do |config|
           },
           EvaluationResponse: {
             type: :object
+          },
+          UserLoginParams: {
+            type: :object,
+            properties: {
+              user: {
+                type: :object,
+                properties: {
+                  email: { type: :string, example: 'user@example.com' },
+                  password: { type: :string, example: 'password' }
+                }
+              }
+            }
           }
         },
         security: [
