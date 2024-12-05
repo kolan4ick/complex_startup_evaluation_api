@@ -1,6 +1,9 @@
 module Api
   module V1
     class Users::RegistrationsController < Devise::RegistrationsController
+      rate_limit to: 5, within: 1.hour, only: :create, by: -> { request.remote_ip }
+      rate_limit to: 5, within: 1.minute, only: :update, by: -> { request.remote_ip }
+
       include RackSessionsFix
 
       respond_to :json
