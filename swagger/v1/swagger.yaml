@@ -147,7 +147,7 @@ servers:
 - url: "{host}"
   variables:
     host:
-      default: http://localhost:3001
+      default: https://api.yuryshynets.tech
 components:
   securitySchemes:
     bearerAuth:

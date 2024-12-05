@@ -18,7 +18,7 @@ RSpec.configure do |config|
           url: '{host}',
           variables: {
             host: {
-              default: 'http://localhost:3001'
+              default: ENV.fetch('SWAGGER_URL', 'http://localhost:3000')
             }
           }
         }
