@@ -655,17 +655,17 @@ components:
       - meta
     EvaluationResponse:
       type: object
+    UserLoginParams:
+      type: object
       properties:
-        evaluation:
-          "$ref": "#/components/schemas/Evaluation"
-        result:
-          type: object
         user:
-          "$ref": "#/components/schemas/User"
-      required:
-      - id
-      - created_at
-      - updated_at
-      - user
+          type: object
+          properties:
+            email:
+              type: string
+              example: user@example.com
+            password:
+              type: string
+              example: password
   security:
   - bearerAuth: []
